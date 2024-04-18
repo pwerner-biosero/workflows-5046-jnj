@@ -1,0 +1,54 @@
+{
+  "procedures": [
+    {
+      "name": "Start",
+      "sequence": {
+        "children": [
+          {
+            "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+            "scriptName": "Registration",
+            "name": "Run Script",
+            "description": "Run Script: Registration",
+            "helpText": "Runs the specified script",
+            "guid": "03f0081e-db44-4b9b-97b5-f5404261b7eb",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+            "backgroundColorHex": "#FFF58CFF",
+            "isDisabled": false,
+            "isPausePointSet": false
+          }
+        ],
+        "name": "Sequence",
+        "description": "Sequence",
+        "helpText": "A sequence of workflow elements",
+        "guid": "f1b6c242-f0e7-49d6-9cce-53686186e35f",
+        "isAsync": false,
+        "allowAsync": false,
+        "backgroundColorHex": "#00000000",
+        "isDisabled": false,
+        "isPausePointSet": false
+      }
+    }
+  ],
+  "parameters": [],
+  "scripts": [
+    {
+      "name": "Registration",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\n\r\nusing System;\r\nusing System.Collections;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\nusing System.Text.Json;\r\nusing System.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing System.Reflection;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nusing Biosero.DataServices.RestClient;\r\nusing Newtonsoft.Json;\r\nusing Newtonsoft.Json.Linq;\r\n//using System.Text.Json.Nodes;\r\nusing Biosero.DataModels.Resources;\r\nusing Biosero.DataModels.Parameters;\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing Inventory_Helper;\r\nusing Biosero.DataModels.Clients;\r\nusing Biosero.DataModels.Events;\r\nusing Serilog.Core;\r\nusing Biosero.DataServices;\r\n\r\nusing CalLabUtilities;\r\nusing System.Dynamic;\r\n\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class Registration \r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n\r\n          \r\n                  CalLabUtilities.Registration.RegisterProtocolIdentities();\r\n                     /*\r\n                  CalLabUtilities.Registration.RegisterPlates();\r\n                  \r\n                  CalLabUtilities.Registration.RegisterTubes();\r\n                  \r\n                   CalLabUtilities.Registration.RegisterStorageDevices();*/\r\n                \r\n\r\n        }\r\n\r\n    }\r\n    \r\n\r\n}\r\n",
+      "language": "C#"
+    }
+  ],
+  "globalScriptReferences": [
+    "Biosero.Workflow.Core.dll",
+    "Biosero.DataModels.dll"
+  ],
+  "screens": [],
+  "deviceRequirements": [],
+  "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+  "color": "#0000FF",
+  "name": "REGISTER_IDENTITIES",
+  "category": "Scripts",
+  "lastModified": "0001-01-01T00:00:00+00:00",
+  "parameterReferenceIndicator": "%"
+}

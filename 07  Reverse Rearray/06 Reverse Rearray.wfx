@@ -1,0 +1,576 @@
+{
+  "procedures": [
+    {
+      "name": "Start",
+      "sequence": {
+        "children": [
+          {
+            "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+            "scriptName": "GenerateRearrayWorklists",
+            "name": "Run Script",
+            "description": "Run Script: GenerateRearrayWorklists",
+            "helpText": "Runs the specified script",
+            "guid": "82133575-5d2a-409f-bb64-0ad0d03f1437",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+            "backgroundColorHex": "#FFF58CFF",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Loop, Biosero.Workflow.Core",
+            "sequence": {
+              "children": [
+                {
+                  "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+                  "yes": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+                        "scriptName": "GetRearrayContainer",
+                        "name": "Run Script",
+                        "description": "Run Script: GetRearrayContainer",
+                        "helpText": "Runs the specified script",
+                        "guid": "5ce950ce-3d37-4cd5-b879-c4b00c421b49",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+                        "backgroundColorHex": "#FFF58CFF",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      },
+                      {
+                        "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                        "timeout": "00:30:00",
+                        "inputParameters": [
+                          {
+                            "name": "PICKLIST",
+                            "value": "%picklist%",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          }
+                        ],
+                        "outputParameterMapping": [
+                          {
+                            "name": "PICKLIST",
+                            "mapToGlobalVariableName": "updated_picklist",
+                            "parameterType": "String"
+                          },
+                          {
+                            "name": "Module ID",
+                            "parameterType": "String"
+                          }
+                        ],
+                        "name": "PICK_VIALS_RETURN",
+                        "description": "Order: PICK_VIALS_RETURN",
+                        "guid": "82183d71-e8b5-4d31-87c1-a0447873df2e",
+                        "isAsync": false,
+                        "allowAsync": true,
+                        "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+                        "backgroundColorHex": "#0000FF",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      },
+                      {
+                        "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                        "timeout": "00:30:00",
+                        "inputParameters": [
+                          {
+                            "name": "PICKLIST",
+                            "value": "%updated_picklist%",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          }
+                        ],
+                        "outputParameterMapping": [
+                          {
+                            "name": "Module ID",
+                            "parameterType": "String"
+                          }
+                        ],
+                        "name": "PUT_VIALS",
+                        "description": "Order: PUT_VIALS",
+                        "guid": "0a5d7ae8-ed37-4d8d-8a9b-7418ed67e576",
+                        "isAsync": true,
+                        "allowAsync": true,
+                        "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+                        "backgroundColorHex": "#0000FF",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "c940d1af-fc38-4740-8e2f-7e5c56581ff3",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "no": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                        "description": "Log: [ALL RACKS PICKED]",
+                        "text": "[ALL RACKS PICKED]",
+                        "appendNewLine": false,
+                        "name": "Log",
+                        "helpText": "Writes to the log",
+                        "guid": "21a10848-5c83-4e1d-8211-a9f412f7421b",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                        "backgroundColorHex": "#FFC69AE8",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "97e892a5-18f4-480f-aae3-ab35d8fd3664",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "evaluation": {
+                    "left": "LOOP_COUNTER",
+                    "right": "%NUMBER_OF_RACKS%",
+                    "evaluator": "LessThan"
+                  },
+                  "name": "Branch",
+                  "description": "Branch if LOOP_COUNTER < %NUMBER_OF_RACKS%",
+                  "helpText": "Evaluates a condition and branches accordingly",
+                  "guid": "0cf03b2d-2982-46d8-8af7-444b588db460",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+                  "backgroundColorHex": "#FFDEDE81",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.SetParameter, Biosero.Workflow.Core",
+                  "parameterName": "LOOP_COUNTER",
+                  "leftOperand": "%LOOP_COUNTER%",
+                  "isUnaryOperation": false,
+                  "operator": "Add",
+                  "rightOperand": "1",
+                  "name": "Set Parameter",
+                  "description": "LOOP_COUNTER = %LOOP_COUNTER% + 1",
+                  "helpText": "Sets a parameter",
+                  "guid": "c5822f0e-974b-440a-a7a5-f51899630f48",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.Equal [#FFFFFFFF]",
+                  "backgroundColorHex": "#FFA8E281",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                }
+              ],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "f9d437c8-af5c-4452-8821-f9f94d3d8804",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "evaluation": {
+              "left": "LOOP_COUNTER",
+              "right": "%NUMBER_OF_RACKS%",
+              "evaluator": "LessThanOrEqual"
+            },
+            "evaluateAtEnd": true,
+            "loopCount": 0,
+            "loopType": "While",
+            "foreachCollectionVariable": "",
+            "foreachItemVariable": "",
+            "foreachDelimiter": ",",
+            "name": "Loop",
+            "description": "Loop While LOOP_COUNTER ≤ %NUMBER_OF_RACKS% at end",
+            "helpText": "A loop over a sequence of elements",
+            "guid": "26647c60-7cf0-460b-ac42-bd58f5f9a543",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Reload [#FFFFFFFF]",
+            "backgroundColorHex": "#FF08EAA7",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+            "yes": {
+              "children": [],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "4210d18c-0384-416e-8990-0405384fecdb",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "no": {
+              "children": [
+                {
+                  "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+                  "scriptName": "UpdateVialLocations",
+                  "name": "Run Script",
+                  "description": "Run Script: UpdateVialLocations",
+                  "helpText": "Runs the specified script",
+                  "guid": "1d2816ec-b562-42a6-b874-9485aef70827",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+                  "backgroundColorHex": "#FFF58CFF",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+                  "scriptName": "GerTransportMetaData",
+                  "name": "Run Script",
+                  "description": "Run Script: GerTransportMetaData",
+                  "helpText": "Runs the specified script",
+                  "guid": "9a310850-796c-49ec-bb62-cb89debb02ad",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+                  "backgroundColorHex": "#FFF58CFF",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+                  "scriptName": "UpdateContainerWorklist",
+                  "name": "Run Script",
+                  "description": "Run Script: UpdateContainerWorklist",
+                  "helpText": "Runs the specified script",
+                  "guid": "d01d0b1e-e2f5-4037-bc86-efd36abff365",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+                  "backgroundColorHex": "#FFF58CFF",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                }
+              ],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "83baeeb6-f7de-4ce2-9411-ee82a7b836e7",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "evaluation": {
+              "left": "SKIP",
+              "right": "True",
+              "evaluator": "Equal"
+            },
+            "name": "Branch",
+            "description": "Branch if SKIP = True",
+            "helpText": "Evaluates a condition and branches accordingly",
+            "guid": "64629595-c6fd-425a-8380-e5daa75b7b9a",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+            "backgroundColorHex": "#FFDEDE81",
+            "isDisabled": false,
+            "isPausePointSet": false
+          }
+        ],
+        "name": "Sequence",
+        "description": "Sequence",
+        "helpText": "A sequence of workflow elements",
+        "guid": "bedc603c-ae27-4c4e-a13b-6751fa85953b",
+        "isAsync": false,
+        "allowAsync": false,
+        "backgroundColorHex": "#00000000",
+        "isDisabled": false,
+        "isPausePointSet": false
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "BARCODE",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "LOOP_COUNTER",
+      "value": "0",
+      "valueType": "Integer",
+      "defaultValue": "0",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "NUMBER_OF_RACKS",
+      "value": "0",
+      "valueType": "Integer",
+      "defaultValue": "0",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "SKIP",
+      "value": "True",
+      "valueType": "Boolean",
+      "defaultValue": "True",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "PickListJSON",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "Input.CONTAINER_WORKLIST",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "REARRAY_CONTAINERS",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "WORKLIST",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "Output.CONTAINER_WORKLIST",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "TRANSPORT_METADATA",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "TRANSPORT_BARCODE",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_DESTINATION",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "LIST_TO_SEND_BACK",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "LIST_TO_SEND_BACK Copy",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "PICKLISTS",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "picklist",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "updated_picklist",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    }
+  ],
+  "scripts": [
+    {
+      "name": "GenerateRearrayWorklists",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\nusing System;\r\nusing Newtonsoft.Json;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing CalLabUtilities;\r\nusing Serilog;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GenerateRearrayWorklists\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {        \t    \r\n   \t\tvar (rearrayContainers, picklists, numberOfRacks) = MetaDataProcessor.ProcessReverseRearray(context.GetGlobalVariableValue<string>(\"Input.CONTAINER_WORKLIST\"));\r\n\r\n    \t\tConsole.WriteLine(rearrayContainers);\r\n    \t\tawait context.UpdateGlobalVariableAsync(\"REARRAY_CONTAINERS\", rearrayContainers);\r\n    \t\t\r\n    \t\tawait context.UpdateGlobalVariableAsync(\"PICKLISTS\", picklists);\r\n\r\n    \t\tawait context.UpdateGlobalVariableAsync(\"NUMBER_OF_RACKS\", numberOfRacks);\r\n       }\r\n   }\r\n}",
+      "language": "C#"
+    },
+    {
+      "name": "GetBarcode",
+      "code": "#r CalLabIdentities.dll\r\n#r WorkflowHelper.dll\r\nusing System;\r\nusing System.Linq;\r\n\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing CalLabUtilities;\r\n\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GetBarcode\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n        \r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            var jsonString = context.GetGlobalVariableValue<string>(\"PickListJSON\");\r\n            var index = context.GetGlobalVariableValue<int>(\"LOOP_COUNTER\");\r\n            \r\n            var pickListData = BarcodeManager.GetPickListDataAtIndex(jsonString, index);\r\n            \r\n            if (pickListData.HasValue)\r\n            {\r\n                var (barcode, picklist) = pickListData.Value;\r\n                \r\n                await context.UpdateGlobalVariableAsync(\"BARCODE\", barcode, cancellationToken);\r\n                await context.UpdateGlobalVariableAsync(\"PICKLIST\", picklist, cancellationToken);\r\n                \r\n                log.Information($\"Generating Picklist for Barcode: {barcode}\");\r\n                Console.WriteLine(picklist);\r\n            }\r\n            else\r\n            {\r\n                log.Information(\"Picklist data not found for the given index.\");\r\n            }\r\n\r\n           // return Task.CompletedTask;\r\n        }\r\n    }\r\n}",
+      "language": "C#"
+    },
+    {
+      "name": "GetRearrayContainer",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\nusing System;\r\nusing Newtonsoft.Json;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing CalLabUtilities;\r\nusing Serilog;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GetRearrayContainer\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            var reverse_rearray_picklist = MetaDataProcessor.GetReverseRearrayPicklist(context.GetGlobalVariableValue<string>(\"PICKLISTS\"), context.GetGlobalVariableValue<int>(\"LOOP_COUNTER\"));\r\n            \r\n            await context.UpdateGlobalVariableAsync(\"picklist\", reverse_rearray_picklist);\r\n    \r\n        }\r\n    }\r\n}\r\n\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "UpdateContainerWorklist",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\nusing System;\r\nusing Newtonsoft.Json;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing CalLabUtilities;\r\nusing Serilog;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class UpdateContainerWorklist\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n        /*\r\n            string worklist = context.GetGlobalVariableValue<string>(\"WORKLIST\");\r\n            \r\n            string input_container_worklist = context.GetGlobalVariableValue<string>(\"Input.CONTAINER_WORKLIST\");\r\n            \r\n            var updated_worklist = MetaDataProcessor.UpdateJSONWorklistWithRearrayRackBarcodes(input_container_worklist, worklist);\r\n            \r\n            context.UpdateGlobalVariableAsync(\"Input.CONTAINER_WORKLIST\", updated_worklist);\r\n            \r\n            context.UpdateGlobalVariableAsync(\"Output.CONTAINER_WORKLIST\", updated_worklist);\r\n            \r\n            */\r\n\r\n            return Task.CompletedTask;\r\n        }\r\n    }\r\n    \r\n    \r\n    public class RearrayPickList\r\n    {\r\n        public string AnchorBarcode {get; set;}\r\n        public string SourceBarcode {get;set;}\r\n        public string ContainerType {get; set;}\r\n        public string PROCESS_LABWARE {get; set;}\r\n        public string WorkList {get;set;}\r\n\r\n    }\r\n}\r\n\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "GerTransportMetaData",
+      "code": "\r\n\r\n#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\n\r\nusing System;\r\nusing System.Linq;\r\n\r\nusing Newtonsoft.Json;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing CalLabUtilities;\r\nusing Serilog;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GerTransportMetaData\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            string rearray_containers = context.GetGlobalVariableValue<string>(\"REARRAY_CONTAINERS\");\r\n            \r\n            \r\n             string stuff_to_Check = context.GetGlobalVariableValue<string>(\"LIST_TO_SEND_BACK\");\r\n            MetaDataProcessor.CheckListToSendBack(stuff_to_Check);\r\n                 \r\n            var idx = context.GetGlobalVariableValue<int>(\"LOOP_COUNTER\");\r\n            idx = idx-1;\r\n            \r\n            \r\n            /*\r\n            \r\n            var rearray_container_worklist = MetaDataProcessor.GetReverseRearrayContainer(rearray_containers, idx);\r\n            \r\n            var rearray_picklist = JsonConvert.DeserializeObject<List<RearrayPickList>>(rearray_container_worklist);\r\n            \r\n            var plate_id = rearray_picklist[0].AnchorBarcode;\r\n            \r\n\r\n            \r\n            Console.WriteLine($\"[GENERATING TRANSPORT META DATA - {plate_id}]\");\r\n            \r\n            //Console.WriteLine(rearray_container_worklist);\r\n            \r\n             string json = context.GetGlobalVariableValue<string>(\"Input.CONTAINER_WORKLIST\");\r\n          \r\n             var transport_meta_data = MetaDataProcessor.GetRearrayTransportMetaData(plate_id, json);\r\n             \r\n             var storage_location = MetaDataProcessor.GetReuseStorageLocation(transport_meta_data);\r\n              \r\n   \r\n              \r\n              await context.UpdateGlobalVariableAsync(\"TRANSPORT_METADATA\",transport_meta_data );\r\n              \r\n              await context.UpdateGlobalVariableAsync(\"TRANSPORT_BARCODE\", plate_id);\r\n              \r\n              */\r\n            \r\n           \r\n              //return Task.CompletedTask;\r\n        }\r\n    }\r\n    \r\n    \r\n\r\n    \r\n}\r\n\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "UpdateVialLocations",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\nusing System;\r\nusing Newtonsoft.Json;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing CalLabUtilities;\r\nusing Serilog;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class UpdateVialLocations\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n\r\n\r\n\r\n            string rearray_containers = context.GetGlobalVariableValue<string>(\"REARRAY_CONTAINERS\");\r\n\r\n            var idx = context.GetGlobalVariableValue<int>(\"LOOP_COUNTER\");\r\n\r\n            var rearray_container_worklist = MetaDataProcessor.GetReverseRearrayContainer(rearray_containers, idx);\r\n            \r\n            List<RearrayPickList> rearray_picklists = JsonConvert.DeserializeObject<List<RearrayPickList>>(rearray_container_worklist);\r\n\r\n\r\n            var worklist = context.GetGlobalVariableValue<string>(\"WORKLIST\");\r\n\r\n            //----This Should be replaced by whatever barcode the GBG Process Grabs\r\n\r\n            var random = new Random();\r\n\r\n            foreach (var container in rearray_picklists)\r\n            {\r\n                var randomNumber = random.Next(10000, 99999);\r\n                var barcode = $\"reverse_{randomNumber}\";\r\n\r\n                container.AnchorBarcode = barcode;\r\n            }\r\n\r\n            var list_to_send_back =context.GetGlobalVariableValue<string>(\"LIST_TO_SEND_BACK\");\r\n\r\n\r\n            // Initialize as an empty JSON array if list_to_send_back is null or empty\r\n            if (string.IsNullOrEmpty(list_to_send_back))\r\n            {\r\n                list_to_send_back = \"[]\";\r\n            }\r\n\r\n\r\n            List<List<RearrayPickList>> updated_rearray_picklists = JsonConvert.DeserializeObject<List<List<RearrayPickList>>>(list_to_send_back);\r\n\r\n            updated_rearray_picklists.Add(rearray_picklists);\r\n\r\n            var updated_stuff = JsonConvert.SerializeObject(updated_rearray_picklists);\r\n\r\n            await context.UpdateGlobalVariableAsync(\"LIST_TO_SEND_BACK\", updated_stuff);\r\n            \r\n            //var updated_rearray_container = MetaDataProcessor.UpdateReverseRearrayContainers(rearray_containers, rearray_container_worklist, idx);\r\n\r\n\r\n            //await context.UpdateGlobalVariableAsync(\"REARRAY_CONTAINERS\", updated_rearray_container);\r\n\r\n            //--Need to check this out because it should be more than one barcode to update\r\n            //worklist = MetaDataProcessor.UpdateVialLocations(worklist, barcode);\r\n\r\n            await context.UpdateGlobalVariableAsync(\"WORKLIST\", worklist);\r\n\r\n\r\n        }\r\n    }\r\n}\r\n\r\n",
+      "language": "C#"
+    }
+  ],
+  "globalScriptReferences": [
+    "Biosero.Workflow.Core.dll",
+    "Biosero.DataModels.dll"
+  ],
+  "screens": [],
+  "deviceRequirements": [],
+  "iconUrl": "PackIcon.CodeArray [#FFFFFF:0:0]",
+  "color": "#FFFF0044",
+  "name": "Reverse Rearray",
+  "category": "UpdateTemplates",
+  "lastModified": "0001-01-01T00:00:00+00:00",
+  "parameterReferenceIndicator": "%"
+}

@@ -1,0 +1,115 @@
+{
+  "procedures": [
+    {
+      "name": "Start",
+      "sequence": {
+        "children": [
+          {
+            "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+            "scriptName": "UpdateSettings",
+            "name": "Run Script",
+            "description": "Run Script: UpdateSettings",
+            "helpText": "Runs the specified script",
+            "guid": "02e2a558-ddef-4d16-8042-fcf08a4e64b7",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+            "backgroundColorHex": "#FFF58CFF",
+            "isDisabled": false,
+            "isPausePointSet": false
+          }
+        ],
+        "name": "Sequence",
+        "description": "Sequence",
+        "helpText": "A sequence of workflow elements",
+        "guid": "b68b5efa-a77f-49ff-ae1c-5b8f555a364e",
+        "isAsync": false,
+        "allowAsync": false,
+        "backgroundColorHex": "#00000000",
+        "isDisabled": false,
+        "isPausePointSet": false
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Input.Cold Storage",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "valueOptions": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          "VERSO_Q20_4C_1",
+          "VERSO_Q20_4C_2",
+          "VERSO_Q20_4C_1,VERSO_Q20_4C_2"
+        ]
+      },
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "Input.DNA Workcell",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "valueOptions": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          "WORKCELL_DNA_1",
+          "WORKCELL_DNA_2",
+          "WORKCELL_DNA_1,WORKCELL_DNA_2"
+        ]
+      },
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "Input.BIOVIA ENV",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "valueOptions": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          "DEV",
+          "QA",
+          "PROD"
+        ]
+      },
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    }
+  ],
+  "scripts": [
+    {
+      "name": "UpdateSettings",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\n\r\nusing System;\r\nusing System.Collections;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\nusing System.Text.Json;\r\nusing System.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing System.Reflection;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nusing Biosero.DataServices.RestClient;\r\nusing Newtonsoft.Json;\r\nusing Newtonsoft.Json.Linq;\r\n//using System.Text.Json.Nodes;\r\nusing Biosero.DataModels.Resources;\r\nusing Biosero.DataModels.Parameters;\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing Inventory_Helper;\r\nusing Biosero.DataModels.Clients;\r\nusing Biosero.DataModels.Events;\r\nusing Serilog.Core;\r\nusing Biosero.DataServices;\r\n\r\nusing CalLabUtilities;\r\nusing System.Dynamic;\r\n\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n   \r\n    public class UpdateSettings \r\n    {\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n          \r\n           GlobalSettings globalSettings = new GlobalSettings();\r\n\r\n           globalSettings.COLD_STORAGE = context.GetGlobalVariableValue<string>(\"Input.Cold Storage\");\r\n           \r\n           globalSettings.DNA_WORKCELL = context.GetGlobalVariableValue<string>(\"Input.DNA Workcell\");\r\n           \r\n           globalSettings.BIOVIA_ENV = context.GetGlobalVariableValue<string>(\"Input.BIOVIA ENV\");\r\n\r\n           var json_settings = JsonConvert.SerializeObject(globalSettings);\r\n\r\n           Registration.UpdateGlobalSettings(json_settings);\r\n\r\n    \t}\r\n    \r\n\r\n   }\r\n }\r\n",
+      "language": "C#"
+    }
+  ],
+  "globalScriptReferences": [
+    "Biosero.Workflow.Core.dll",
+    "Biosero.DataModels.dll"
+  ],
+  "screens": [],
+  "deviceRequirements": [],
+  "iconUrl": "PackIcon.Gear [#FFFFFF:0:0]",
+  "color": "#FFA100FF",
+  "name": "Update Global Settings",
+  "category": "Genetic Testing",
+  "lastModified": "0001-01-01T00:00:00+00:00",
+  "parameterReferenceIndicator": "%"
+}

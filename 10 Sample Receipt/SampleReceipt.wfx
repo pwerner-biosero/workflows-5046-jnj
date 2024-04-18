@@ -1,0 +1,817 @@
+{
+  "procedures": [
+    {
+      "name": "Start",
+      "sequence": {
+        "children": [
+          {
+            "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+            "scriptName": "CheckInContainers",
+            "name": "Run Script",
+            "description": "Run Script: CheckInContainers",
+            "helpText": "Runs the specified script",
+            "guid": "f3c2eaed-f460-4676-a946-77d4a922522a",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+            "backgroundColorHex": "#FFF58CFF",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Elements.RequireApproval, Biosero.Workflow.Core",
+            "timeoutInMinutes": 360.0,
+            "name": "Require Approval",
+            "description": "Require Approval with timeout of: 360(min)",
+            "helpText": "Requires a user to approve the workflow before proceeding.",
+            "guid": "0da15fcd-d85f-4a0f-8bc7-7475887b16ea",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.PersonCheck [#FFFFFFFF]",
+            "backgroundColorHex": "#FFA500",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+            "scriptName": "ProcessSampleUpdateTemplate",
+            "name": "Run Script",
+            "description": "Run Script: ProcessSampleUpdateTemplate",
+            "helpText": "Runs the specified script",
+            "guid": "9fbb19c2-4cab-4504-b1e9-70a10609e8c8",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+            "backgroundColorHex": "#FFF58CFF",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Parallel, Biosero.Workflow.Core",
+            "left": {
+              "children": [
+                {
+                  "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+                  "yes": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+                        "scriptName": "ParseInput",
+                        "name": "Run Script",
+                        "description": "Run Script: ParseInput",
+                        "helpText": "Runs the specified script",
+                        "guid": "941f8b8a-ebaa-403e-a185-15634ea5f675",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+                        "backgroundColorHex": "#FFF58CFF",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "83fcba57-f762-4a68-9b4d-868833ce43e1",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "no": {
+                    "children": [],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "38cfe82b-1463-46d8-bb00-b1ef9dfcd48e",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "evaluation": {
+                    "left": "TEMPLATE_NAME",
+                    "right": "SampleUpdateTemplate",
+                    "evaluator": "Equal"
+                  },
+                  "name": "Branch",
+                  "description": "Branch if TEMPLATE_NAME = SampleUpdateTemplate",
+                  "helpText": "Evaluates a condition and branches accordingly",
+                  "guid": "4f23a568-ec4f-40b2-9864-7eb2ccca7680",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+                  "backgroundColorHex": "#FFDEDE81",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                }
+              ],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "aa184bb4-630d-4018-bcf4-b12818c7c6f8",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "right": {
+              "children": [
+                {
+                  "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+                  "yes": {
+                    "children": [],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "bf55d3a8-3002-41ed-a472-f619265fd38f",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "no": {
+                    "children": [],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "10c4ba48-dd50-448e-82cd-c90f166095a7",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "evaluation": {
+                    "left": "TEMPLATE_NAME",
+                    "right": "",
+                    "evaluator": "Equal"
+                  },
+                  "name": "Branch",
+                  "description": "Branch if TEMPLATE_NAME = ",
+                  "helpText": "Evaluates a condition and branches accordingly",
+                  "guid": "6836fd64-2915-449f-bad4-9527c7014104",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+                  "backgroundColorHex": "#FFDEDE81",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                }
+              ],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "3964f51a-d88e-4372-a105-d7dd2eb67896",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "name": "Parallel",
+            "description": "Parallel",
+            "helpText": "Executes two sequences in parallel",
+            "guid": "56c5495f-907b-4429-b6f4-0b389fe61134",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.CallSplit [#FFFFFFFF:180]",
+            "backgroundColorHex": "#FF72EAFF",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+            "description": "Log: %SAMPLE_LIST%",
+            "text": "%SAMPLE_LIST%",
+            "appendNewLine": false,
+            "name": "Log",
+            "helpText": "Writes to the log",
+            "guid": "aa3a2f69-b413-4d4d-bf40-c72c5cafa6e5",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+            "backgroundColorHex": "#FFC69AE8",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+            "yes": {
+              "children": [],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "16bd42c6-f66a-4066-a7e1-cdde943966ac",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "no": {
+              "children": [],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "81f73640-2442-4fbf-8c53-9eddba2d3f18",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "evaluation": {
+              "left": "Input.RECEIPT_STATION",
+              "right": "WORKCELL_PILOT_LAB",
+              "evaluator": "Equal"
+            },
+            "name": "Branch",
+            "description": "Branch if Input.RECEIPT_STATION = WORKCELL_PILOT_LAB",
+            "helpText": "Evaluates a condition and branches accordingly",
+            "guid": "f0438c4c-44b0-48a5-8ccf-fa8a042a2e00",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+            "backgroundColorHex": "#FFDEDE81",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+            "yes": {
+              "children": [
+                {
+                  "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                  "description": "Log: [MINUS 80]",
+                  "text": "[MINUS 80]",
+                  "appendNewLine": false,
+                  "name": "Log",
+                  "helpText": "Writes to the log",
+                  "guid": "c00adbe8-e202-4583-9458-4f83dd7af600",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                  "backgroundColorHex": "#FFC69AE8",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                  "description": "Log: [RUN PILOT LAB TEMPLATE]",
+                  "text": "[RUN PILOT LAB TEMPLATE]",
+                  "appendNewLine": false,
+                  "name": "Log",
+                  "helpText": "Writes to the log",
+                  "guid": "a9a8bb6c-6d11-473c-af10-114a9958286e",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                  "backgroundColorHex": "#FFC69AE8",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                }
+              ],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "2878ce74-9877-4cd2-ba23-ec30879ad48c",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "no": {
+              "children": [
+                {
+                  "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+                  "yes": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                        "description": "Log: MINUS 20",
+                        "text": "MINUS 20",
+                        "appendNewLine": false,
+                        "name": "Log",
+                        "helpText": "Writes to the log",
+                        "guid": "d49ce7e0-26d3-4711-99cf-0babc0d6f80c",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                        "backgroundColorHex": "#FFC69AE8",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      },
+                      {
+                        "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                        "description": "Log: [RUN PILOT LAB TEMPLATE]",
+                        "text": "[RUN PILOT LAB TEMPLATE]",
+                        "appendNewLine": false,
+                        "name": "Log",
+                        "helpText": "Writes to the log",
+                        "guid": "cd246987-bf8a-4b15-82dc-928fc96267d7",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                        "backgroundColorHex": "#FFC69AE8",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "86557240-9151-43a3-80da-71b1c00a2dff",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "no": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+                        "yes": {
+                          "children": [
+                            {
+                              "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                              "description": "Log: ROOM TEMP",
+                              "text": "ROOM TEMP",
+                              "appendNewLine": false,
+                              "name": "Log",
+                              "helpText": "Writes to the log",
+                              "guid": "11fb8f4d-fbff-4f2d-8e93-6eb23af4a431",
+                              "isAsync": false,
+                              "allowAsync": false,
+                              "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                              "backgroundColorHex": "#FFC69AE8",
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            },
+                            {
+                              "$type": "Biosero.Workflow.Commands.TransportCommand, Biosero.Workflow.Core",
+                              "inputParameters": [
+                                {
+                                  "name": "Timeout (min)",
+                                  "value": "10",
+                                  "valueType": "Double",
+                                  "defaultValue": "10"
+                                },
+                                {
+                                  "name": "From",
+                                  "value": "WORKCELL_PILOT_LAB",
+                                  "valueType": "String"
+                                },
+                                {
+                                  "name": "To",
+                                  "value": "WORKCELL_REARRAY_1",
+                                  "valueType": "String"
+                                },
+                                {
+                                  "name": "Barcodes",
+                                  "value": "%Input.RackBarcode%",
+                                  "valueType": "String"
+                                },
+                                {
+                                  "name": "Metadata",
+                                  "valueType": "String"
+                                }
+                              ],
+                              "outputParameterMapping": [
+                                {
+                                  "name": "Barcodes",
+                                  "parameterType": "String"
+                                },
+                                {
+                                  "name": "Request ID",
+                                  "parameterType": "String"
+                                }
+                              ],
+                              "name": "Transport",
+                              "description": "Transport",
+                              "helpText": "Transports the specified barcode(s) from one station to another.",
+                              "guid": "b7f0bd62-26ee-4d35-9d73-e86785596de4",
+                              "isAsync": false,
+                              "allowAsync": false,
+                              "iconUrl": "PackIcon.TransitConnectionVariant [#FFFFFFFF]",
+                              "backgroundColorHex": "#FF666666",
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            },
+                            {
+                              "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                              "description": "Log: [RUN COLD STORE TEMPLATE]",
+                              "text": "[RUN COLD STORE TEMPLATE]",
+                              "appendNewLine": false,
+                              "name": "Log",
+                              "helpText": "Writes to the log",
+                              "guid": "2183160c-1700-46a7-ad39-113765d00f3c",
+                              "isAsync": false,
+                              "allowAsync": false,
+                              "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                              "backgroundColorHex": "#FFC69AE8",
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            }
+                          ],
+                          "name": "Sequence",
+                          "description": "Sequence",
+                          "helpText": "A sequence of workflow elements",
+                          "guid": "ba639576-ccb6-4202-9ba2-a5fb6124babc",
+                          "isAsync": false,
+                          "allowAsync": false,
+                          "backgroundColorHex": "#00000000",
+                          "isDisabled": false,
+                          "isPausePointSet": false
+                        },
+                        "no": {
+                          "children": [
+                            {
+                              "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+                              "yes": {
+                                "children": [
+                                  {
+                                    "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                                    "description": "Log: 4 DEGREES",
+                                    "text": "4 DEGREES",
+                                    "appendNewLine": false,
+                                    "name": "Log",
+                                    "helpText": "Writes to the log",
+                                    "guid": "2143992d-51ed-4797-8b70-6178c91b94ac",
+                                    "isAsync": false,
+                                    "allowAsync": false,
+                                    "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                                    "backgroundColorHex": "#FFC69AE8",
+                                    "isDisabled": false,
+                                    "isPausePointSet": false
+                                  },
+                                  {
+                                    "$type": "Biosero.Workflow.Commands.TransportCommand, Biosero.Workflow.Core",
+                                    "inputParameters": [
+                                      {
+                                        "name": "Timeout (min)",
+                                        "value": "10",
+                                        "valueType": "Double",
+                                        "defaultValue": "10"
+                                      },
+                                      {
+                                        "name": "From",
+                                        "value": "WORKCELL_PILOT_LAB",
+                                        "valueType": "String"
+                                      },
+                                      {
+                                        "name": "To",
+                                        "value": "WORKCELL_COLD_STORE_1",
+                                        "valueType": "String"
+                                      },
+                                      {
+                                        "name": "Barcodes",
+                                        "value": "%Input.RackBarcode%",
+                                        "valueType": "String"
+                                      },
+                                      {
+                                        "name": "Metadata",
+                                        "valueType": "String"
+                                      }
+                                    ],
+                                    "outputParameterMapping": [
+                                      {
+                                        "name": "Barcodes",
+                                        "parameterType": "String"
+                                      },
+                                      {
+                                        "name": "Request ID",
+                                        "parameterType": "String"
+                                      }
+                                    ],
+                                    "name": "Transport",
+                                    "description": "Transport",
+                                    "helpText": "Transports the specified barcode(s) from one station to another.",
+                                    "guid": "0771048f-8438-455e-9670-17239684dae2",
+                                    "isAsync": false,
+                                    "allowAsync": false,
+                                    "iconUrl": "PackIcon.TransitConnectionVariant [#FFFFFFFF]",
+                                    "backgroundColorHex": "#FF666666",
+                                    "isDisabled": false,
+                                    "isPausePointSet": false
+                                  },
+                                  {
+                                    "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                                    "description": "Log: [RUN COLD STORE TEMPLATE]",
+                                    "text": "[RUN COLD STORE TEMPLATE]",
+                                    "appendNewLine": false,
+                                    "name": "Log",
+                                    "helpText": "Writes to the log",
+                                    "guid": "9b9550b2-675d-4a11-b8a7-ac7f7c429472",
+                                    "isAsync": false,
+                                    "allowAsync": false,
+                                    "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                                    "backgroundColorHex": "#FFC69AE8",
+                                    "isDisabled": false,
+                                    "isPausePointSet": false
+                                  }
+                                ],
+                                "name": "Sequence",
+                                "description": "Sequence",
+                                "helpText": "A sequence of workflow elements",
+                                "guid": "3984ef67-87c3-474b-8180-ab6d91519b1c",
+                                "isAsync": false,
+                                "allowAsync": false,
+                                "backgroundColorHex": "#00000000",
+                                "isDisabled": false,
+                                "isPausePointSet": false
+                              },
+                              "no": {
+                                "children": [],
+                                "name": "Sequence",
+                                "description": "Sequence",
+                                "helpText": "A sequence of workflow elements",
+                                "guid": "80f70ca0-a322-4050-9c22-e65c3425a755",
+                                "isAsync": false,
+                                "allowAsync": false,
+                                "backgroundColorHex": "#00000000",
+                                "isDisabled": false,
+                                "isPausePointSet": false
+                              },
+                              "evaluation": {
+                                "left": "STORAGE_REQUIREMNT",
+                                "right": "4C",
+                                "evaluator": "Equal"
+                              },
+                              "name": "Branch",
+                              "description": "Branch if STORAGE_REQUIREMNT = 4C",
+                              "helpText": "Evaluates a condition and branches accordingly",
+                              "guid": "1d81263d-cc04-4240-888e-ca0fe37f4d73",
+                              "isAsync": false,
+                              "allowAsync": false,
+                              "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+                              "backgroundColorHex": "#FFDEDE81",
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            }
+                          ],
+                          "name": "Sequence",
+                          "description": "Sequence",
+                          "helpText": "A sequence of workflow elements",
+                          "guid": "4a72b96a-b560-481e-a811-e1ccb707d73a",
+                          "isAsync": false,
+                          "allowAsync": false,
+                          "backgroundColorHex": "#00000000",
+                          "isDisabled": false,
+                          "isPausePointSet": false
+                        },
+                        "evaluation": {
+                          "left": "STORAGE_REQUIREMNT",
+                          "right": "RT",
+                          "evaluator": "Equal"
+                        },
+                        "name": "Branch",
+                        "description": "Branch if STORAGE_REQUIREMNT = RT",
+                        "helpText": "Evaluates a condition and branches accordingly",
+                        "guid": "8119f543-94a1-49f3-abee-07086e8b475c",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+                        "backgroundColorHex": "#FFDEDE81",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "f387f9d3-e5c4-4c13-b43d-50f63ff0bb50",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "evaluation": {
+                    "left": "STORAGE_REQUIREMENT",
+                    "right": "-20C",
+                    "evaluator": "Equal"
+                  },
+                  "name": "Branch",
+                  "description": "Branch if STORAGE_REQUIREMENT = -20C",
+                  "helpText": "Evaluates a condition and branches accordingly",
+                  "guid": "65b0680c-9665-47d6-8837-4e833cbeb34f",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+                  "backgroundColorHex": "#FFDEDE81",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                }
+              ],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "421d74ae-6d5f-4d0b-ac07-1e9b6b68786f",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "evaluation": {
+              "left": "STORAGE_REQUIREMNT",
+              "right": "-80C",
+              "evaluator": "Equal"
+            },
+            "name": "Branch",
+            "description": "Branch if STORAGE_REQUIREMNT = -80C",
+            "helpText": "Evaluates a condition and branches accordingly",
+            "guid": "777dbb5a-459c-44ad-868e-5ce0f456418b",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+            "backgroundColorHex": "#FFDEDE81",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+            "description": "Log: FINALIZE REGISTATION",
+            "text": "FINALIZE REGISTATION",
+            "appendNewLine": false,
+            "name": "Log",
+            "helpText": "Writes to the log",
+            "guid": "c9bd14ec-38ca-4a82-8662-14fa93020727",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+            "backgroundColorHex": "#FFC69AE8",
+            "isDisabled": false,
+            "isPausePointSet": false
+          }
+        ],
+        "name": "Sequence",
+        "description": "Sequence",
+        "helpText": "A sequence of workflow elements",
+        "guid": "9848b417-e95b-4401-9546-b96f27d75d83",
+        "isAsync": false,
+        "allowAsync": false,
+        "backgroundColorHex": "#00000000",
+        "isDisabled": false,
+        "isPausePointSet": false
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Input.RackBarcode",
+      "value": "BC-1234",
+      "valueType": "String",
+      "defaultValue": "BC-1234",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_REQUIREMENT",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "Input.RECEIPT_STATION",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "Input.ZIATH",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "ORDER_NOTES",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "SAMPLE_LIST",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_REQUIREMNT",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "JSON_SAMPLE_LIST",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "TEMPLATE_NAME",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    }
+  ],
+  "scripts": [
+    {
+      "name": "CheckInContainers",
+      "code": "#r CalLabIdentities.dll\r\n#r WorkflowHelper.dll\r\n#r BatchingServiceClient.dll\r\n#r System.Windows.Forms.dll\r\n\r\nusing System;\r\nusing System.Linq;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing CalLabUtilities;\r\nusing Biosero.DataServices.RestClient;\r\n//using Biosero.DataModels.Ordering;\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class CheckInContainers\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n        \r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            try\r\n            {\r\n            \r\n            \tConfiguration config = ConfigLoader.LoadConfiguration(\"cal_config.json\");\r\n            \t\r\n                var rack_barcode = context.GetGlobalVariableValue<string>(\"Input.RackBarcode\");\r\n                var barcodes = context.GetGlobalVariableValue<string>(\"Input.ZIATH\");\r\n                var receipt_station = context.GetGlobalVariableValue<string>(\"Input.RECEIPT_STATION\");\r\n\r\n                log.Information($\"[RACK BARCODE] {rack_barcode}\");\r\n                log.Information($\"[SET TRANSPORT ORIGIN] {receipt_station}\");\r\n\r\n                var bc_list = BarcodeManager.ParseTubeData(barcodes);\r\n                var bc_json = BarcodeManager.ConvertListToJson(bc_list);\r\n\r\n                var url = config.AppSettings..InteligentBatchingURL;\r\n                \r\n                IntelligentBatchingServiceClient ibsc = new IntelligentBatchingServiceClient(url);\r\n\r\n                string json_samples = await ibsc.SampleLookup(bc_json);\r\n\r\n                await context.UpdateGlobalVariableAsync(\"JSON_SAMPLE_LIST\", json_samples);\r\n            }\r\n            catch (Exception ex)\r\n            {\r\n                log.Error($\"An error occurred during the process: {ex.Message}\");\r\n                throw; // Re-throwing the exception to ensure it can be caught by any outer exception handling\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "ProcessSampleUpdateTemplate",
+      "code": "#r CalLabIdentities.dll\r\n#r WorkflowHelper.dll\r\n#r BatchingServiceClient.dll\r\n\r\nusing System;\r\nusing System.Linq;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\n\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing CalLabUtilities;\r\nusing Biosero.DataServices.RestClient;\r\nusing Biosero.DataModels.Ordering;\r\nusing Newtonsoft.Json;\r\n\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class ProcessSampleUpdateTemplate\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n        \r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            try\r\n            {\r\n                var url = \"http://localhost:7183/\";\r\n\r\n                IntelligentBatchingServiceClient ibsc = new IntelligentBatchingServiceClient(url);\r\n                \r\n                var bc_json = context.GetGlobalVariableValue<string>(\"JSON_SAMPLE_LIST\");\r\n                \r\n                var order = await client.GetOrderAsync(context.OrderIdentifier);\r\n\r\n                var (sample_list, order_template) = WorkflowHelper.ProcessSampleUpdateTemplate(bc_json, order.Identifier);\r\n              \r\n                await context.UpdateGlobalVariableAsync(\"SAMPLE_LIST\", sample_list);\r\n                \r\n                await context.UpdateGlobalVariableAsync(\"TEMPLATE_NAME\", order_template);\r\n            }\r\n            catch (Exception ex)\r\n            {\r\n                log.Error($\"An error occurred during the process: {ex.Message}\");\r\n                throw; // Re-throwing the exception to ensure it can be caught by any outer exception handling\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "OverideSampleJson",
+      "code": "\r\n\r\n\r\n#r CalLabIdentities.dll\r\n#r WorkflowHelper.dll\r\n#r BatchingServiceClient.dll\r\n\r\nusing System;\r\nusing System.Linq;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing System.IO;\r\n\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing CalLabUtilities;\r\nusing Biosero.DataServices.RestClient;\r\nusing Biosero.DataModels.Ordering;\r\nusing Newtonsoft.Json;\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class OverideSampleJson\r\n    {\r\n    \tprivate static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n    \t\r\n        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n\r\n\r\n        \t\tstring filePath = @\"C:\\Program Files (x86)\\BioseroWorkflowService\\input.json\"; // Replace with the actual file path\r\n        \t\tstring fileContents = File.ReadAllText(filePath);\r\n        \r\n        \t\t //log.Information(fileContents);\r\n        \t\t context.UpdateGlobalVariableAsync(\"SAMPLE_LIST\", fileContents);\r\n\r\n\t\r\n            return Task.CompletedTask;\r\n        }\r\n            \r\n  \r\n    }\r\n    \r\n\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "ParseInput",
+      "code": "#r CalLabIdentities.dll\r\n#r WorkflowHelper.dll\r\n#r BatchingServiceClient.dll\r\n\r\nusing System;\r\nusing System.Linq;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing System.IO;\r\n\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing CalLabUtilities;\r\nusing Biosero.DataServices.RestClient;\r\nusing Biosero.DataModels.Ordering;\r\nusing Newtonsoft.Json;\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class ParseInput\r\n    {\r\n    \tprivate static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n    \t\r\n        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n\r\n             var sample_list = context.GetGlobalVariableValue<string>(\"SAMPLE_LIST\");\r\n\t\t \r\n\t     var storage_requirement =  IntelligentBatchingServiceClient.GetStorageRequirement(sample_list);\r\n\t     \r\n\t     context.UpdateGlobalVariableAsync(\"STORAGE_REQUIREMNT\", storage_requirement);\r\n\t     \r\n\t     log.Information($\"STORAGE REQUIREMENT: {storage_requirement}\");\r\n\r\n\t\r\n            return Task.CompletedTask;\r\n        }\r\n            \r\n  \r\n    }\r\n    \r\n\r\n}\r\n",
+      "language": "C#"
+    }
+  ],
+  "globalScriptReferences": [
+    "Biosero.Workflow.Core.dll",
+    "Biosero.DataModels.dll"
+  ],
+  "screens": [],
+  "deviceRequirements": [],
+  "iconUrl": "PackIcon.TestTubeEmpty [#FFFFFF:0:0]",
+  "color": "#0000FF",
+  "name": "Sample Receipt",
+  "category": "UpdateTemplates",
+  "lastModified": "0001-01-01T00:00:00+00:00",
+  "parameterReferenceIndicator": "%"
+}

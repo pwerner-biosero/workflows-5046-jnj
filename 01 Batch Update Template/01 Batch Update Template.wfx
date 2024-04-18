@@ -1,0 +1,2051 @@
+{
+  "procedures": [
+    {
+      "name": "Start",
+      "sequence": {
+        "children": [
+          {
+            "$type": "Biosero.Workflow.Elements.RequireApproval, Biosero.Workflow.Core",
+            "timeoutInMinutes": 360.0,
+            "name": "Require Approval",
+            "description": "Require Approval with timeout of: 360(min)",
+            "helpText": "Requires a user to approve the workflow before proceeding.",
+            "guid": "2e013786-89ed-4dc6-bbad-072de3fd82d0",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.PersonCheck [#FFFFFFFF]",
+            "backgroundColorHex": "#FFA500",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+            "scriptName": "ConsumeBatch",
+            "name": "Run Script",
+            "description": "Run Script: ConsumeBatch",
+            "helpText": "Runs the specified script",
+            "guid": "39f398a3-a418-4343-a662-0899ca76aa2c",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+            "backgroundColorHex": "#FFF58CFF",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Branch, Biosero.Workflow.Core",
+            "yes": {
+              "children": [
+                {
+                  "$type": "Biosero.Workflow.Parallel, Biosero.Workflow.Core",
+                  "left": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.Parallel, Biosero.Workflow.Core",
+                        "left": {
+                          "children": [
+                            {
+                              "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                              "backgroundColorHex": "#FF4EFF00",
+                              "iconUrl": "PackIcon.AnimationOutline [#FFFFFF:0:0]",
+                              "name": "GET_CONSUMABLES",
+                              "timeout": "00:30:00",
+                              "inputParameters": [
+                                {
+                                  "name": "StepNumber",
+                                  "value": "1",
+                                  "valueType": "Integer",
+                                  "defaultValue": "1",
+                                  "valueOptions": {
+                                    "$type": "System.String[], System.Private.CoreLib",
+                                    "$values": []
+                                  },
+                                  "validationRules": [],
+                                  "tags": [
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "name": "CONTAINER_WORKLIST",
+                                  "value": "%CONTAINER_JSON%",
+                                  "valueType": "String",
+                                  "defaultValue": "",
+                                  "valueOptions": {
+                                    "$type": "System.String[], System.Private.CoreLib",
+                                    "$values": []
+                                  },
+                                  "validationRules": [],
+                                  "tags": [
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "name": "STORAGE",
+                                  "value": "STORAGE_RT_STORE_1_AMBIENT",
+                                  "valueType": "String",
+                                  "defaultValue": "",
+                                  "valueOptions": {
+                                    "$type": "System.String[], System.Private.CoreLib",
+                                    "$values": []
+                                  },
+                                  "validationRules": [],
+                                  "tags": [
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "outputParameterMapping": [
+                                {
+                                  "name": "STORAGE_WORKLIST",
+                                  "mapToGlobalVariableName": "PLACEHOLDER",
+                                  "parameterType": "String"
+                                },
+                                {
+                                  "name": "CONTAINER_WORKLIST",
+                                  "mapToGlobalVariableName": "STORAGE_RT_STORE_1_AMBIENT",
+                                  "parameterType": "Integer"
+                                },
+                                {
+                                  "name": "Module ID",
+                                  "parameterType": "String"
+                                }
+                              ],
+                              "description": "Order: GET_CONSUMABLES",
+                              "guid": "94eaab90-526e-495f-a677-1b9350b90a18",
+                              "isAsync": false,
+                              "allowAsync": true,
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            }
+                          ],
+                          "name": "Sequence",
+                          "description": "Sequence",
+                          "helpText": "A sequence of workflow elements",
+                          "guid": "aea09286-5cd1-4746-8cb3-c8684e5065bf",
+                          "isAsync": false,
+                          "allowAsync": false,
+                          "backgroundColorHex": "#00000000",
+                          "isDisabled": false,
+                          "isPausePointSet": false
+                        },
+                        "right": {
+                          "children": [
+                            {
+                              "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                              "backgroundColorHex": "#FFB000FF",
+                              "iconUrl": "PackIcon.Flask [#FFFFFF:0:0]",
+                              "name": "GET_REAGENTS ",
+                              "timeout": "00:30:00",
+                              "inputParameters": [
+                                {
+                                  "name": "StepNumber",
+                                  "value": "1",
+                                  "valueType": "Integer",
+                                  "defaultValue": "0",
+                                  "valueOptions": {
+                                    "$type": "System.String[], System.Private.CoreLib",
+                                    "$values": []
+                                  },
+                                  "validationRules": [],
+                                  "tags": [
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "name": "CONTAINER_WORKLIST",
+                                  "value": "%CONTAINER_JSON%",
+                                  "valueType": "String",
+                                  "defaultValue": "",
+                                  "valueOptions": {
+                                    "$type": "System.String[], System.Private.CoreLib",
+                                    "$values": []
+                                  },
+                                  "validationRules": [],
+                                  "tags": [
+                                    ""
+                                  ]
+                                },
+                                {
+                                  "name": "STORAGE",
+                                  "value": "STORAGE_REARRAY_1_AMBIENT",
+                                  "valueType": "String",
+                                  "defaultValue": "",
+                                  "valueOptions": {
+                                    "$type": "System.String[], System.Private.CoreLib",
+                                    "$values": []
+                                  },
+                                  "validationRules": [],
+                                  "tags": [
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "outputParameterMapping": [
+                                {
+                                  "name": "CONTAINER_WORKLIST",
+                                  "mapToGlobalVariableName": "STORAGE_REARRAY_1_AMBIENT",
+                                  "parameterType": "String"
+                                },
+                                {
+                                  "name": "Module ID",
+                                  "parameterType": "String"
+                                }
+                              ],
+                              "description": "Order: GET_REAGENTS ",
+                              "guid": "aba96924-5563-411f-9026-7789d13f6032",
+                              "isAsync": false,
+                              "allowAsync": true,
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            }
+                          ],
+                          "name": "Sequence",
+                          "description": "Sequence",
+                          "helpText": "A sequence of workflow elements",
+                          "guid": "407df705-2962-4822-8280-5195eaef0f2a",
+                          "isAsync": false,
+                          "allowAsync": false,
+                          "backgroundColorHex": "#00000000",
+                          "isDisabled": false,
+                          "isPausePointSet": false
+                        },
+                        "name": "Parallel",
+                        "description": "Parallel",
+                        "helpText": "Executes two sequences in parallel",
+                        "guid": "7aa1b02b-397b-43f6-b1b6-6fca3e611d51",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.CallSplit [#FFFFFFFF:180]",
+                        "backgroundColorHex": "#FF72EAFF",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "422cacb3-d51f-4046-9051-6892956d1539",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "right": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.Parallel, Biosero.Workflow.Core",
+                        "left": {
+                          "children": [
+                            {
+                              "$type": "Biosero.Workflow.Parallel, Biosero.Workflow.Core",
+                              "left": {
+                                "children": [
+                                  {
+                                    "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                                    "backgroundColorHex": "#0000FF",
+                                    "iconUrl": "PackIcon.TestTube [#FFFFFF:0:0]",
+                                    "name": "GET_VIALS",
+                                    "timeout": "00:30:00",
+                                    "inputParameters": [
+                                      {
+                                        "name": "STORAGE",
+                                        "value": "STORAGE_AZENTA_MINUS_80",
+                                        "valueType": "String",
+                                        "defaultValue": "",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_1",
+                                        "value": "WORKCELL_PILOT_LAB",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_PILOT_LAB",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_2",
+                                        "value": "WORKCELL_REARRAY_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_3",
+                                        "value": "WORKCELL_RT_STORE_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_RT_STORE_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_1",
+                                        "value": "WORKCELL_REARRAY_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_2",
+                                        "value": "WORKCELL_RT_STORE_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_RT_STORE_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_3",
+                                        "value": "WORKCELL_REARRAY_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "StepNumber",
+                                        "value": "1",
+                                        "valueType": "Integer",
+                                        "defaultValue": "1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "CONTAINER_WORKLIST",
+                                        "value": "%CONTAINER_JSON%",
+                                        "valueType": "String",
+                                        "defaultValue": "",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      }
+                                    ],
+                                    "outputParameterMapping": [
+                                      {
+                                        "name": "CONTAINER_WORKLIST",
+                                        "mapToGlobalVariableName": "STORAGE_AZENTA_MINUS_80",
+                                        "parameterType": "String"
+                                      },
+                                      {
+                                        "name": "Module ID",
+                                        "parameterType": "String"
+                                      }
+                                    ],
+                                    "description": "Order: GET_VIALS",
+                                    "guid": "394a13d5-172e-47a6-bd75-73fb52c14ec1",
+                                    "isAsync": false,
+                                    "allowAsync": true,
+                                    "isDisabled": false,
+                                    "isPausePointSet": false
+                                  }
+                                ],
+                                "name": "Sequence",
+                                "description": "Sequence",
+                                "helpText": "A sequence of workflow elements",
+                                "guid": "17e816a9-94ea-4910-a995-7eb8e7aff3cc",
+                                "isAsync": false,
+                                "allowAsync": false,
+                                "backgroundColorHex": "#00000000",
+                                "isDisabled": false,
+                                "isPausePointSet": false
+                              },
+                              "right": {
+                                "children": [
+                                  {
+                                    "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                                    "backgroundColorHex": "#0000FF",
+                                    "iconUrl": "PackIcon.TestTube [#FFFFFF:0:0]",
+                                    "name": "GET_VIALS",
+                                    "timeout": "00:30:00",
+                                    "inputParameters": [
+                                      {
+                                        "name": "STORAGE",
+                                        "value": "STORAGE_AZENTA_MINUS_20",
+                                        "valueType": "String",
+                                        "defaultValue": "",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_1",
+                                        "value": "WORKCELL_PILOT_LAB",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_PILOT_LAB",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_2",
+                                        "value": "WORKCELL_REARRAY_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_3",
+                                        "value": "WORKCELL_RT_STORE_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_RT_STORE_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_1",
+                                        "value": "WORKCELL_REARRAY_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_2",
+                                        "value": "WORKCELL_RT_STORE_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_RT_STORE_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_3",
+                                        "value": "WORKCELL_REARRAY_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "StepNumber",
+                                        "value": "1",
+                                        "valueType": "Integer",
+                                        "defaultValue": "1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "CONTAINER_WORKLIST",
+                                        "value": "%CONTAINER_JSON%",
+                                        "valueType": "String",
+                                        "defaultValue": "",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      }
+                                    ],
+                                    "outputParameterMapping": [
+                                      {
+                                        "name": "CONTAINER_WORKLIST",
+                                        "mapToGlobalVariableName": "STORAGE_AZENTA_MINUS_20",
+                                        "parameterType": "String"
+                                      },
+                                      {
+                                        "name": "Module ID",
+                                        "parameterType": "String"
+                                      }
+                                    ],
+                                    "description": "Order: GET_VIALS",
+                                    "guid": "53b576c0-e6a2-4224-aed3-7ca8f513bdd5",
+                                    "isAsync": false,
+                                    "allowAsync": true,
+                                    "isDisabled": false,
+                                    "isPausePointSet": false
+                                  }
+                                ],
+                                "name": "Sequence",
+                                "description": "Sequence",
+                                "helpText": "A sequence of workflow elements",
+                                "guid": "18ccec48-d371-494d-b4b5-0c697119d672",
+                                "isAsync": false,
+                                "allowAsync": false,
+                                "backgroundColorHex": "#00000000",
+                                "isDisabled": false,
+                                "isPausePointSet": false
+                              },
+                              "name": "Parallel",
+                              "description": "Parallel",
+                              "helpText": "Executes two sequences in parallel",
+                              "guid": "e24e5afe-ea37-49e9-8cc2-bd55846cd22f",
+                              "isAsync": false,
+                              "allowAsync": false,
+                              "iconUrl": "PackIcon.CallSplit [#FFFFFFFF:180]",
+                              "backgroundColorHex": "#FF72EAFF",
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            },
+                            {
+                              "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+                              "scriptName": "UpdateWorklist",
+                              "name": "Run Script",
+                              "description": "Run Script: UpdateWorklist",
+                              "helpText": "Runs the specified script",
+                              "guid": "27748804-4fa8-4c9a-ae4e-678ff8988357",
+                              "isAsync": false,
+                              "allowAsync": false,
+                              "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+                              "backgroundColorHex": "#FFF58CFF",
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            },
+                            {
+                              "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                              "backgroundColorHex": "#0000FF",
+                              "iconUrl": "PackIcon.CodeArray [#FFFFFF:0:0]",
+                              "name": "Rearray",
+                              "timeout": "00:30:00",
+                              "inputParameters": [
+                                {
+                                  "name": "CONTAINER_WORKLIST",
+                                  "value": "%CONTAINER_JSON%",
+                                  "valueType": "String",
+                                  "defaultValue": "",
+                                  "valueOptions": {
+                                    "$type": "System.String[], System.Private.CoreLib",
+                                    "$values": []
+                                  },
+                                  "validationRules": [],
+                                  "tags": [
+                                    ""
+                                  ]
+                                }
+                              ],
+                              "outputParameterMapping": [
+                                {
+                                  "name": "CONTAINER_WORKLIST",
+                                  "mapToGlobalVariableName": "CONTAINER_JSON",
+                                  "parameterType": "String"
+                                },
+                                {
+                                  "name": "Module ID",
+                                  "parameterType": "String"
+                                }
+                              ],
+                              "description": "Order: Rearray",
+                              "guid": "cdf22c2f-7e80-4d47-b570-ff99e3987d10",
+                              "isAsync": false,
+                              "allowAsync": true,
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            }
+                          ],
+                          "name": "Sequence",
+                          "description": "Sequence",
+                          "helpText": "A sequence of workflow elements",
+                          "guid": "0e05b8ca-88ca-497d-af75-9033bb3cb901",
+                          "isAsync": false,
+                          "allowAsync": false,
+                          "backgroundColorHex": "#00000000",
+                          "isDisabled": false,
+                          "isPausePointSet": false
+                        },
+                        "right": {
+                          "children": [
+                            {
+                              "$type": "Biosero.Workflow.Parallel, Biosero.Workflow.Core",
+                              "left": {
+                                "children": [
+                                  {
+                                    "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                                    "backgroundColorHex": "#0000FF",
+                                    "iconUrl": "PackIcon.TestTube [#FFFFFF:0:0]",
+                                    "name": "GET_VIALS",
+                                    "timeout": "00:30:00",
+                                    "inputParameters": [
+                                      {
+                                        "name": "STORAGE",
+                                        "value": "STORAGE_VERSO_Q20_1",
+                                        "valueType": "String",
+                                        "defaultValue": "",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_1",
+                                        "value": "WORKCELL_COLD_STORE_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_PILOT_LAB",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_2",
+                                        "value": "NONE",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_3",
+                                        "value": "NONE",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_RT_STORE_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_1",
+                                        "value": "WORKCELL_REARRAY_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_2",
+                                        "value": "NONE",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_RT_STORE_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_3",
+                                        "value": "NONE",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "StepNumber",
+                                        "value": "1",
+                                        "valueType": "Integer",
+                                        "defaultValue": "1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "CONTAINER_WORKLIST",
+                                        "value": "%CONTAINER_JSON%",
+                                        "valueType": "String",
+                                        "defaultValue": "",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      }
+                                    ],
+                                    "outputParameterMapping": [
+                                      {
+                                        "name": "CONTAINER_WORKLIST",
+                                        "mapToGlobalVariableName": "STORAGE_VERSO_Q20_1",
+                                        "parameterType": "String"
+                                      },
+                                      {
+                                        "name": "Module ID",
+                                        "parameterType": "String"
+                                      }
+                                    ],
+                                    "description": "Order: GET_VIALS",
+                                    "guid": "17db0ea5-e732-47bd-b3a8-d1de4e51b394",
+                                    "isAsync": false,
+                                    "allowAsync": true,
+                                    "isDisabled": false,
+                                    "isPausePointSet": false
+                                  }
+                                ],
+                                "name": "Sequence",
+                                "description": "Sequence",
+                                "helpText": "A sequence of workflow elements",
+                                "guid": "fa3e120d-59ff-4033-89d6-0871b43ab49f",
+                                "isAsync": false,
+                                "allowAsync": false,
+                                "backgroundColorHex": "#00000000",
+                                "isDisabled": false,
+                                "isPausePointSet": false
+                              },
+                              "right": {
+                                "children": [
+                                  {
+                                    "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                                    "backgroundColorHex": "#0000FF",
+                                    "iconUrl": "PackIcon.TestTube [#FFFFFF:0:0]",
+                                    "name": "GET_VIALS",
+                                    "timeout": "00:30:00",
+                                    "inputParameters": [
+                                      {
+                                        "name": "STORAGE",
+                                        "value": "STORAGE_VERSO_Q20_2",
+                                        "valueType": "String",
+                                        "defaultValue": "",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_1",
+                                        "value": "WORKCELL_COLD_STORE",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_PILOT_LAB",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_2",
+                                        "value": "NONE",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_ORIGN_3",
+                                        "value": "NONE",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_RT_STORE_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_1",
+                                        "value": "WORKCELL_REARRAY_1",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_2",
+                                        "value": "NONE",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_RT_STORE_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "TRANSPORT_DEST_3",
+                                        "value": "NONE",
+                                        "valueType": "String",
+                                        "defaultValue": "WORKCELL_REARRAY_1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "StepNumber",
+                                        "value": "1",
+                                        "valueType": "Integer",
+                                        "defaultValue": "1",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      },
+                                      {
+                                        "name": "CONTAINER_WORKLIST",
+                                        "value": "%CONTAINER_JSON%",
+                                        "valueType": "String",
+                                        "defaultValue": "",
+                                        "valueOptions": {
+                                          "$type": "System.String[], System.Private.CoreLib",
+                                          "$values": []
+                                        },
+                                        "validationRules": [],
+                                        "tags": [
+                                          ""
+                                        ]
+                                      }
+                                    ],
+                                    "outputParameterMapping": [
+                                      {
+                                        "name": "CONTAINER_WORKLIST",
+                                        "mapToGlobalVariableName": "STORAGE_AZENTA_MINUS_20",
+                                        "parameterType": "String"
+                                      },
+                                      {
+                                        "name": "Module ID",
+                                        "parameterType": "String"
+                                      }
+                                    ],
+                                    "description": "Order: GET_VIALS",
+                                    "guid": "2adab574-79cd-4170-9af4-a288e591821b",
+                                    "isAsync": false,
+                                    "allowAsync": true,
+                                    "isDisabled": false,
+                                    "isPausePointSet": false
+                                  }
+                                ],
+                                "name": "Sequence",
+                                "description": "Sequence",
+                                "helpText": "A sequence of workflow elements",
+                                "guid": "da3951eb-9c64-4ba1-995e-58adc880026d",
+                                "isAsync": false,
+                                "allowAsync": false,
+                                "backgroundColorHex": "#00000000",
+                                "isDisabled": false,
+                                "isPausePointSet": false
+                              },
+                              "name": "Parallel",
+                              "description": "Parallel",
+                              "helpText": "Executes two sequences in parallel",
+                              "guid": "04bb71de-d0b1-49e3-9f64-b15271b5befc",
+                              "isAsync": false,
+                              "allowAsync": false,
+                              "iconUrl": "PackIcon.CallSplit [#FFFFFFFF:180]",
+                              "backgroundColorHex": "#FF72EAFF",
+                              "isDisabled": false,
+                              "isPausePointSet": false
+                            }
+                          ],
+                          "name": "Sequence",
+                          "description": "Sequence",
+                          "helpText": "A sequence of workflow elements",
+                          "guid": "78001a68-e924-4551-8cea-70dea9fd98f3",
+                          "isAsync": false,
+                          "allowAsync": false,
+                          "backgroundColorHex": "#00000000",
+                          "isDisabled": false,
+                          "isPausePointSet": false
+                        },
+                        "name": "Parallel",
+                        "description": "Parallel",
+                        "helpText": "Executes two sequences in parallel",
+                        "guid": "99ce2c43-457f-4905-a39e-c03ec37c8f5c",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.CallSplit [#FFFFFFFF:180]",
+                        "backgroundColorHex": "#FF72EAFF",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "bc4baca2-8ebf-4747-9d8c-3b6e7c3da003",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "name": "Parallel",
+                  "description": "Parallel",
+                  "helpText": "Executes two sequences in parallel",
+                  "guid": "bbce233d-6573-426f-b215-3d6fee03bf12",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.CallSplit [#FFFFFFFF:180]",
+                  "backgroundColorHex": "#FF72EAFF",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+                  "scriptName": "UpdateWorklist",
+                  "name": "Run Script",
+                  "description": "Run Script: UpdateWorklist",
+                  "helpText": "Runs the specified script",
+                  "guid": "e4e8d399-3476-40fa-8f66-549ff362186b",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+                  "backgroundColorHex": "#FFF58CFF",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                  "description": "Log: RUN PART 1",
+                  "text": "RUN PART 1",
+                  "appendNewLine": false,
+                  "name": "Log",
+                  "helpText": "Writes to the log",
+                  "guid": "bfc37892-b3be-41a8-b6ad-7f2c212471fd",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                  "backgroundColorHex": "#FFC69AE8",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                  "backgroundColorHex": "#0000FF",
+                  "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+                  "name": "TRANSPORT_TO_STORAGE",
+                  "timeout": "00:30:00",
+                  "inputParameters": [
+                    {
+                      "name": "CONTAINER_WORKLIST",
+                      "value": "%CONTAINER_JSON%",
+                      "valueType": "String",
+                      "defaultValue": "",
+                      "valueOptions": {
+                        "$type": "System.String[], System.Private.CoreLib",
+                        "$values": []
+                      },
+                      "validationRules": [],
+                      "tags": [
+                        ""
+                      ]
+                    },
+                    {
+                      "name": "DEPARTURE_STEP",
+                      "value": "1",
+                      "valueType": "String",
+                      "defaultValue": "",
+                      "valueOptions": {
+                        "$type": "System.String[], System.Private.CoreLib",
+                        "$values": []
+                      },
+                      "validationRules": [],
+                      "tags": [
+                        ""
+                      ]
+                    },
+                    {
+                      "name": "SOLUTION_DATA",
+                      "value": "%ALL_SOLUTION_DATA%",
+                      "valueType": "String",
+                      "defaultValue": "",
+                      "valueOptions": {
+                        "$type": "System.String[], System.Private.CoreLib",
+                        "$values": []
+                      },
+                      "validationRules": [],
+                      "tags": [
+                        ""
+                      ]
+                    }
+                  ],
+                  "outputParameterMapping": [
+                    {
+                      "name": "Module ID",
+                      "parameterType": "String"
+                    }
+                  ],
+                  "description": "Order: TRANSPORT_TO_STORAGE",
+                  "guid": "920c86e3-c44b-450a-803e-85c15d59dbed",
+                  "isAsync": false,
+                  "allowAsync": true,
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.Parallel, Biosero.Workflow.Core",
+                  "left": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                        "backgroundColorHex": "#FF4EFF00",
+                        "iconUrl": "PackIcon.AnimationOutline [#FFFFFF:0:0]",
+                        "name": "GET_CONSUMABLES",
+                        "timeout": "00:30:00",
+                        "inputParameters": [
+                          {
+                            "name": "StepNumber",
+                            "value": "2",
+                            "valueType": "Integer",
+                            "defaultValue": "1",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          },
+                          {
+                            "name": "CONTAINER_WORKLIST",
+                            "value": "%CONTAINER_JSON%",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          },
+                          {
+                            "name": "STORAGE",
+                            "value": "STORAGE_RT_STORE_1_AMBIENT",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          }
+                        ],
+                        "outputParameterMapping": [
+                          {
+                            "name": "STORAGE_WORKLIST",
+                            "parameterType": "String"
+                          },
+                          {
+                            "name": "CONTAINER_WORKLIST",
+                            "mapToGlobalVariableName": "STORAGE_RT_STORE_1_AMBIENT",
+                            "parameterType": "String"
+                          },
+                          {
+                            "name": "Module ID",
+                            "parameterType": "String"
+                          }
+                        ],
+                        "description": "Order: GET_CONSUMABLES",
+                        "guid": "7034c8f6-9013-488d-9e0c-76152d4ce6f5",
+                        "isAsync": false,
+                        "allowAsync": true,
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      },
+                      {
+                        "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+                        "scriptName": "UpdateWorklist",
+                        "name": "Run Script",
+                        "description": "Run Script: UpdateWorklist",
+                        "helpText": "Runs the specified script",
+                        "guid": "39e6de92-99ed-4e54-b08c-31903069c151",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+                        "backgroundColorHex": "#FFF58CFF",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      },
+                      {
+                        "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                        "description": "Log: RUN PART 2",
+                        "text": "RUN PART 2",
+                        "appendNewLine": false,
+                        "name": "Log",
+                        "helpText": "Writes to the log",
+                        "guid": "6287d5f8-2390-4695-9c7e-0dbd80b4004f",
+                        "isAsync": false,
+                        "allowAsync": false,
+                        "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                        "backgroundColorHex": "#FFC69AE8",
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "01483c1b-2b90-43c3-8bf5-fdfb4eec8031",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "right": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                        "backgroundColorHex": "#FFFF0044",
+                        "iconUrl": "PackIcon.CodeArray [#FFFFFF:0:0]",
+                        "name": "Reverse Rearray",
+                        "timeout": "00:30:00",
+                        "inputParameters": [
+                          {
+                            "name": "CONTAINER_WORKLIST",
+                            "value": "%CONTAINER_JSON%",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          }
+                        ],
+                        "outputParameterMapping": [
+                          {
+                            "name": "CONTAINER_WORKLIST",
+                            "mapToGlobalVariableName": "PLACEHOLDER",
+                            "parameterType": "String"
+                          },
+                          {
+                            "name": "Module ID",
+                            "parameterType": "String"
+                          }
+                        ],
+                        "description": "Order: Reverse Rearray",
+                        "guid": "381e6c7c-56d1-4683-8587-8ba3ae1fabc0",
+                        "isAsync": false,
+                        "allowAsync": true,
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "012be84b-dd92-47d7-8c90-6c835b4338e2",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "name": "Parallel",
+                  "description": "Parallel",
+                  "helpText": "Executes two sequences in parallel",
+                  "guid": "3332bb62-42c7-4533-b821-99f89b8e93ad",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.CallSplit [#FFFFFFFF:180]",
+                  "backgroundColorHex": "#FF72EAFF",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.Parallel, Biosero.Workflow.Core",
+                  "left": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                        "backgroundColorHex": "#0000FF",
+                        "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+                        "name": "TRANSPORT_TO_STORAGE",
+                        "timeout": "00:30:00",
+                        "inputParameters": [
+                          {
+                            "name": "CONTAINER_WORKLIST",
+                            "value": "%CONTAINER_JSON%",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          },
+                          {
+                            "name": "DEPARTURE_STEP",
+                            "value": "2",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          },
+                          {
+                            "name": "SOLUTION_DATA",
+                            "value": "%ALL_SOLUTION_DATA%",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          }
+                        ],
+                        "outputParameterMapping": [
+                          {
+                            "name": "Module ID",
+                            "parameterType": "String"
+                          }
+                        ],
+                        "description": "Order: TRANSPORT_TO_STORAGE",
+                        "guid": "b20675fd-6119-4436-a035-b13fdeab876f",
+                        "isAsync": false,
+                        "allowAsync": true,
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "859b0d35-8b90-42b2-90a5-6a1053990d54",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "right": {
+                    "children": [
+                      {
+                        "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                        "backgroundColorHex": "#0000FF",
+                        "iconUrl": "PackIcon.Dna [#FFFFFF:0:0]",
+                        "name": "qPCR Workflow",
+                        "timeout": "00:30:00",
+                        "inputParameters": [
+                          {
+                            "name": "DNA_WORKCELL",
+                            "value": "WORKCELL_DNA_1",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          },
+                          {
+                            "name": "CONTAINER_WORKLIST",
+                            "value": "%CONTAINER_JSON%",
+                            "valueType": "String",
+                            "defaultValue": "",
+                            "valueOptions": {
+                              "$type": "System.String[], System.Private.CoreLib",
+                              "$values": []
+                            },
+                            "validationRules": [],
+                            "tags": [
+                              ""
+                            ]
+                          }
+                        ],
+                        "outputParameterMapping": [
+                          {
+                            "name": "Module ID",
+                            "parameterType": "String"
+                          }
+                        ],
+                        "description": "Order: qPCR Workflow",
+                        "guid": "e5f9a4db-e513-4515-8f6d-07e22351ff02",
+                        "isAsync": false,
+                        "allowAsync": true,
+                        "isDisabled": false,
+                        "isPausePointSet": false
+                      }
+                    ],
+                    "name": "Sequence",
+                    "description": "Sequence",
+                    "helpText": "A sequence of workflow elements",
+                    "guid": "37b3d8b4-a15a-4071-b431-6257c1c53d5c",
+                    "isAsync": false,
+                    "allowAsync": false,
+                    "backgroundColorHex": "#00000000",
+                    "isDisabled": false,
+                    "isPausePointSet": false
+                  },
+                  "name": "Parallel",
+                  "description": "Parallel",
+                  "helpText": "Executes two sequences in parallel",
+                  "guid": "6e4c130d-f810-4fe3-9355-b81ead4ca850",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.CallSplit [#FFFFFFFF:180]",
+                  "backgroundColorHex": "#FF72EAFF",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                }
+              ],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "28a3db6e-9cb3-4e29-a2ca-7156f055848f",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "no": {
+              "children": [
+                {
+                  "$type": "Biosero.Workflow.Elements.Error, Biosero.Workflow.Core",
+                  "helpText": "Generates and error in the workflow with the specified message",
+                  "backgroundColorHex": "#FFFF0000",
+                  "iconUrl": "PackIcon.AlertOutline [#FFFFFFFF]",
+                  "name": "Error",
+                  "message": "%ErrorMessage%",
+                  "description": "Error: %ErrorMessage%",
+                  "guid": "d77e14c8-4e35-4102-bf8d-0ee114f21261",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                  "backgroundColorHex": "#0000FF",
+                  "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+                  "name": "Script.UpdateZones",
+                  "timeout": "00:30:00",
+                  "inputParameters": [
+                    {
+                      "name": "ZONE_FILE_PATH",
+                      "value": "C:\\Users\\Biosero Engineer\\Desktop\\Storage Files\\DNA_PREP_SEQ\\PART_1",
+                      "valueType": "String",
+                      "defaultValue": "",
+                      "valueOptions": [],
+                      "validationRules": [],
+                      "tags": [
+                        "User",
+                        "#DarkMagenta"
+                      ]
+                    }
+                  ],
+                  "outputParameterMapping": [
+                    {
+                      "name": "Module ID",
+                      "parameterType": "String"
+                    }
+                  ],
+                  "description": "Order: Script.UpdateZones",
+                  "guid": "6c661390-1ab7-422f-a8ff-f9a2afef8fee",
+                  "isAsync": false,
+                  "allowAsync": true,
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                }
+              ],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "6305e6b1-61a2-4f15-8463-455aaf5968fb",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "evaluation": {
+              "left": "ErrorMessage",
+              "right": "None",
+              "evaluator": "Equal"
+            },
+            "name": "Branch",
+            "description": "Branch if ErrorMessage = None",
+            "helpText": "Evaluates a condition and branches accordingly",
+            "guid": "5d8d1029-cae3-42b4-a58a-9b5813544120",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Help [#FFFFFFFF:0:2]",
+            "backgroundColorHex": "#FFDEDE81",
+            "isDisabled": false,
+            "isPausePointSet": false
+          }
+        ],
+        "name": "Sequence",
+        "description": "Sequence",
+        "helpText": "A sequence of workflow elements",
+        "guid": "2a3149dd-16e9-4a71-a652-c46d912f085b",
+        "isAsync": false,
+        "allowAsync": false,
+        "backgroundColorHex": "#00000000",
+        "isDisabled": false,
+        "isPausePointSet": false
+      }
+    },
+    {
+      "name": "Assign Order",
+      "sequence": {
+        "children": [
+          {
+            "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+            "scriptName": "GetOrderID",
+            "name": "Run Script",
+            "description": "Run Script: GetOrderID",
+            "helpText": "Runs the specified script",
+            "guid": "4f17d085-2067-4860-888c-9ba7ef04d3e7",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+            "backgroundColorHex": "#FFF58CFF",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+            "backgroundColorHex": "#0000FF",
+            "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+            "name": "Script.CheckInOrchestratorOrder",
+            "timeout": "00:30:00",
+            "inputParameters": [
+              {
+                "name": "ORDER_ID_TO_CHECK",
+                "value": "%ORDER_ID%",
+                "valueType": "String",
+                "defaultValue": "",
+                "valueOptions": [],
+                "validationRules": [],
+                "tags": [
+                  "User",
+                  "#DarkMagenta"
+                ]
+              }
+            ],
+            "outputParameterMapping": [
+              {
+                "name": "ORDER_STATUS",
+                "mapToGlobalVariableName": "ORDER_STATUS",
+                "parameterType": "String"
+              },
+              {
+                "name": "Module ID",
+                "parameterType": "String"
+              }
+            ],
+            "description": "Order: Script.CheckInOrchestratorOrder",
+            "guid": "a9e040c0-c83b-481e-bf50-63241b43c68c",
+            "isAsync": false,
+            "allowAsync": true,
+            "isDisabled": false,
+            "isPausePointSet": false
+          }
+        ],
+        "name": "Sequence",
+        "description": "Sequence",
+        "helpText": "A sequence of workflow elements",
+        "guid": "8d2a7b2b-27f9-4109-9c1e-3cc564e69841",
+        "isAsync": false,
+        "allowAsync": false,
+        "backgroundColorHex": "#00000000",
+        "isDisabled": false,
+        "isPausePointSet": false
+      }
+    },
+    {
+      "name": "Wait for DNA 1",
+      "sequence": {
+        "children": [
+          {
+            "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+            "description": "Log: Waiting for DNA System",
+            "text": "Waiting for DNA System",
+            "appendNewLine": false,
+            "name": "Log",
+            "helpText": "Writes to the log",
+            "guid": "762ee721-20b9-4020-9777-219fad2042ce",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+            "backgroundColorHex": "#FFC69AE8",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Loop, Biosero.Workflow.Core",
+            "helpText": "A loop over a sequence of elements",
+            "backgroundColorHex": "#FF08EAA7",
+            "iconUrl": "PackIcon.Reload [#FFFFFFFF]",
+            "name": "Loop",
+            "sequence": {
+              "children": [
+                {
+                  "$type": "Biosero.Workflow.Commands.ExecuteOrderCommand, Biosero.Workflow.Core",
+                  "backgroundColorHex": "#0000FF",
+                  "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+                  "name": "Script.CheckOrderStatus",
+                  "timeout": "00:30:00",
+                  "inputParameters": [
+                    {
+                      "name": "ORDER_ID_TO_CHECK",
+                      "value": "%ORDER_ID%",
+                      "valueType": "String",
+                      "defaultValue": "",
+                      "valueOptions": [],
+                      "validationRules": [],
+                      "tags": [
+                        "User",
+                        "#DarkMagenta"
+                      ]
+                    }
+                  ],
+                  "outputParameterMapping": [
+                    {
+                      "name": "ORDER_STATUS",
+                      "mapToGlobalVariableName": "ORDER_STATUS",
+                      "parameterType": "String"
+                    },
+                    {
+                      "name": "Module ID",
+                      "parameterType": "String"
+                    }
+                  ],
+                  "description": "Order: Script.CheckOrderStatus",
+                  "guid": "60be6281-2df3-45c8-8e4d-ef1a0055f46f",
+                  "isAsync": false,
+                  "allowAsync": true,
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                },
+                {
+                  "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+                  "description": "Log: Not ready",
+                  "text": "Not ready",
+                  "appendNewLine": false,
+                  "name": "Log",
+                  "helpText": "Writes to the log",
+                  "guid": "ef0b5c4c-dc3d-4c9c-b453-96970c50f558",
+                  "isAsync": false,
+                  "allowAsync": false,
+                  "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+                  "backgroundColorHex": "#FFC69AE8",
+                  "isDisabled": false,
+                  "isPausePointSet": false
+                }
+              ],
+              "name": "Sequence",
+              "description": "Sequence",
+              "helpText": "A sequence of workflow elements",
+              "guid": "67cd344a-fb87-47f0-958b-708856178bba",
+              "isAsync": false,
+              "allowAsync": false,
+              "backgroundColorHex": "#00000000",
+              "isDisabled": false,
+              "isPausePointSet": false
+            },
+            "evaluation": {
+              "left": "ORDER_STATUS",
+              "right": "NOT_READY",
+              "evaluator": "Equal"
+            },
+            "evaluateAtEnd": true,
+            "loopCount": 0,
+            "loopType": "While",
+            "foreachCollectionVariable": "",
+            "foreachItemVariable": "",
+            "foreachDelimiter": ",",
+            "description": "Loop While ORDER_STATUS = NOT_READY at end",
+            "guid": "8685591c-d53d-4795-833b-fbf0c8c0c9eb",
+            "isAsync": false,
+            "allowAsync": false,
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+            "description": "Log: Ready to go!!",
+            "text": "Ready to go!!",
+            "appendNewLine": false,
+            "name": "Log",
+            "helpText": "Writes to the log",
+            "guid": "43d8a6d3-bb5a-4404-884f-8dfafdad7314",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+            "backgroundColorHex": "#FFC69AE8",
+            "isDisabled": false,
+            "isPausePointSet": false
+          }
+        ],
+        "name": "Sequence",
+        "description": "Sequence",
+        "helpText": "A sequence of workflow elements",
+        "guid": "5dadfbe8-e154-4f62-9162-7390cae14679",
+        "isAsync": false,
+        "allowAsync": false,
+        "backgroundColorHex": "#00000000",
+        "isDisabled": false,
+        "isPausePointSet": false
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Input.BatchJSON",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "Input.method",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "ErrorMessage",
+      "value": "None",
+      "valueType": "String",
+      "defaultValue": "None",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_REARRAY_1_AMBIENT",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_AZENTA_MINUS_80",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_VERSO_Q20_1",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_VERSO_Q20_2",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_RT_STORE_1_AMBIENT",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "ORDER_STATUS",
+      "value": "NOT_READY",
+      "valueType": "String",
+      "defaultValue": "NOT_READY",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "ORDER_ID",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_ASKION_1",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "STORAGE_AZENTA_MINUS_20",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "validationRules": [],
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "CONTAINER_JSON",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "PLACEHOLDER",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "DNA_WORKCELL_SETTINGS",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "COLD_STORE_SETTINGS",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "ALL_SOLUTION_DATA",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    }
+  ],
+  "scripts": [
+    {
+      "name": "ConsumeBatch",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\n\r\nusing System;\r\nusing System.Collections;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\nusing System.Text.Json;\r\nusing System.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing System.Reflection;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nusing Biosero.DataServices.RestClient;\r\nusing Newtonsoft.Json;\r\nusing Newtonsoft.Json.Linq;\r\n//using System.Text.Json.Nodes;\r\nusing Biosero.DataModels.Resources;\r\nusing Biosero.DataModels.Parameters;\r\nusing Serilog;\r\nusing CalLabUtilities;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing Inventory_Helper;\r\nusing Biosero.DataModels.Clients;\r\nusing Biosero.DataModels.Events;\r\nusing Serilog.Core;\r\nusing Biosero.DataServices;\r\n\r\n\r\nusing System.Dynamic;\r\n\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n   \r\n    public class ConsumeBatch \r\n    {\r\n        //--This can't be localhost in docker\r\n\r\n        private static Configuration config = ConfigLoader.LoadConfiguration(\"cal_config.json\");\r\n        private static string url = config.AppSettings.DataServicesURL;\r\n        private static string db_connection_string = config.AppSettings.DatabaseConectionString;\r\n        private static AccessioningClient accessioningClient = new AccessioningClient(url);\r\n        private static QueryClient queryClient = new QueryClient(url);\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n        try\r\n            {\r\n\r\n                // Retrieve global variables\r\n                var global_settings = queryClient.GetIdentity(\"GLOBAL_SETTINGS\").Properties;\r\n\r\n                //--Deterimines which DNA Workcells are in operation and assigns to a workflow variable\r\n                var dna_worcell_settinggs = global_settings.FirstOrDefault(p => p.Name == \"DNA_WORKCELL\").Value;\r\n                await context.UpdateGlobalVariableAsync(\"DNA_WORKCELL_SETTINGS\", dna_worcell_settinggs);\r\n                \r\n                //--Deterimines which Cold Storage Units are in operation and assigns to a workflow variable\r\n                var cold_store_settings = global_settings.FirstOrDefault(p => p.Name == \"COLD_STORAGE\").Value;\r\n                await context.UpdateGlobalVariableAsync(\"COLD_STORE_SETTINGS\", cold_store_settings);\r\n\r\n                //--Process the Batch JSON which includes all of the Sample Meta Data and Analytical Methods to run.\r\n                var jsonString = context.GetGlobalVariableValue<string>(\"Input.BatchJSON\");\r\n                BatchOrder batchOrder = JsonConvert.DeserializeObject<BatchOrder>(jsonString);\r\n\r\n\r\n                var method = context.GetGlobalVariableValue<string>(\"Input.method\");\r\n                \r\n                // Sort the samples in the batch order into separate lists based on their sample type (\"Unknown\", \"Standard\", \"Blank\")\r\n                var samples = batchOrder.Samples.Where(s => s.SampleType == \"Unknown\").ToList();\r\n                var standards = batchOrder.Samples.Where(s => s.SampleType == \"Standard\").ToList();\r\n                var blanks = batchOrder.Samples.Where(s => s.SampleType == \"Blank\").ToList();\r\n\r\n                // Get the number of UNKNOWN samples in the batch order\r\n                int numberOfSamples = samples.Count();\r\n\r\n                var batchServiceOrderID = batchOrder.Id;\r\n\r\n\t\r\n                // Generate liquid handling worklist based on Samples Proivded in the Batch Order\r\n                // TODO Add stage\r\n\t\t var liquid_handling_worklist = WorkflowHelper.GenerateLiquidHandlingWorklists(batchOrder);\r\n\r\n\r\n                // The Analytical Method ID is the Identifier of the DataServices Identity that represents the Analytical Method                \r\n                var protocol = queryClient.GetIdentity( batchOrder.Tasks[0].DocumentId);\r\n\r\n                // Get the solutions and steps for the protocol\r\n                var solutions = queryClient.GetChildIdentities(protocol.Identifier, 100, 0);\r\n\r\n                // Split the solutions and steps (Steps are also child identities of the protocol)\r\n                var result = WorkflowHelper.SplitSolutionsAndSteps(solutions);\r\n                \r\n                var sample_identity_metadata = solutions.FirstOrDefault(s => s.Name == \"Sample\");\r\n                var standard_identity_metadata = solutions.FirstOrDefault(s => s.Name == \"Standard\");\r\n\r\n                // This writes all of the Solutions and Reagent information to the DS Console\r\n                WorkflowHelper.LogInputInformation(method, numberOfSamples);\r\n\r\n                // Get the Steps of the workflow - Steps control when containers will be sent to the DNA workcells and removed from the DNA Workcells\r\n                var steps = result.Steps;\r\n                var stepList = WorkflowHelper.ProcessSteps(steps);\r\n\r\n                // Process the solutions and calculate the volumes of each solution and reagent needed for the batch order and assign to a workflow variable\r\n                var allSolutionData = WorkflowHelper.ProcessSolutionsAndCalculateVolumes(result.Solutions, numberOfSamples);\r\n                await context.UpdateGlobalVariableAsync(\"ALL_SOLUTION_DATA\", JsonConvert.SerializeObject(allSolutionData));\r\n                \r\n                WorkflowHelper.PrintAllSolutionsAndReagents(allSolutionData);\r\n\r\n                // Select vials and solutions that meet the requirements of the batch order\r\n                var selectedVials = WorkflowHelper.SelectVialsAndSolutions(allSolutionData, batchServiceOrderID, out var missingIdentities);\r\n\r\n                // Assign Protocol Specific Metadata to the Samples and Standards in the Batch Order\r\n                WorkflowHelper.ProcessSamples(samples, sample_identity_metadata, batchServiceOrderID, ref selectedVials, ref missingIdentities);\r\n                WorkflowHelper.ProcessSamples(standards, standard_identity_metadata, batchServiceOrderID, ref selectedVials, ref missingIdentities);\r\n\r\n                // TODO REMOVE THIS LINE AFTER TESTING\r\n                //missingIdentities.Clear();\r\n                \r\n                // Thow an error in the Workflow if any of the samples, standards or reagents are missing\r\n                WorkflowHelper.HandleMissingIdentities(missingIdentities);\r\n\r\n                // Reserve the reagents for the batch order so that they are not used by other batch orders\r\n                WorkflowHelper.ReserveReagents(selectedVials, batchServiceOrderID);\r\n\r\n                // Generate the reagent and sample picklists for all storage devices\r\n                var (reagentPickList, jsonPickList) = WorkflowHelper.GenerateReagentPickLists(selectedVials, stepList, numberOfSamples, allSolutionData);\r\n                \r\n                await context.UpdateGlobalVariableAsync(\"CONTAINER_JSON\", jsonPickList );\r\n              \r\n            }\r\n            catch (Exception ex)\r\n            {\r\n                var message = $\"{ex.GetType().Name}: {ex.Message}\";\r\n                log.Error(message);\r\n                await context.UpdateGlobalVariableAsync(\"ErrorMessage\", message);\r\n            }\r\n\r\n\r\n\r\n        }\r\n\r\n    }\r\n    \r\n\r\n    }\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "RaiseException",
+      "code": "using System;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\nusing System.Linq;\r\nusing Biosero.Workflow;\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n{\r\n    public class RaiseException : WorkflowScript\r\n    {\r\n       \r\n        private static Logger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n          log.Error(\"We have a situation\");\r\n        }\r\n    }\r\n}",
+      "language": "C#"
+    },
+    {
+      "name": "GetOrderID",
+      "code": "using Serilog;\r\nusing Serilog.Sinks;\r\n\r\nusing System;\r\n\r\nusing System.Collections;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\nusing System.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing System.IO;\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    // Scripts require a class with a parameterless constructor and a RunAsync method matching the below signature.\r\n    public class GetOrderID\r\n    {\r\n    \r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n        \r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n             try\r\n            {\r\n                await context.UpdateGlobalVariableAsync(\"ORDER_ID\", context.OrderIdentifier);\r\n            }\r\n            catch (Exception ex)\r\n            {\r\n                 log.Error(\"An error occurred: \" + ex.Message);\r\n            }\r\n        \r\n        }\r\n    }\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "GetRoomTempContainers",
+      "code": "using Serilog;\r\nusing System;\r\nusing System.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GetRoomTempContainers\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            var container_list = context.GetGlobalVariableValue<string>(\"STORAGE_RT_STORE_1_AMBIENT\");\r\n\r\n            log.Information(container_list);\r\n\r\n            string result = GetContainerTypes(container_list);\r\n            \r\n            string[] splitResult = result.Split(',');\r\n            \r\n            await context.UpdateGlobalVariableAsync(\"RT_NUMBER_OF_CONTAINERS\",  splitResult.Length);\r\n            \r\n            \r\n            \r\n        }\r\n\r\n        public static string GetContainerTypes(string csvData)\r\n        {\r\n            var lines = csvData.Split(new[] { '\\r', '\\n' }, StringSplitOptions.RemoveEmptyEntries);\r\n\r\n            var containerTypes = lines\r\n                .Skip(1) // Skip header\r\n                .Select(line => line.Split(','))\r\n                .Where(columns => columns.Length > 8 && columns[7].Trim() == \"1\")\r\n                .Select(columns => columns[1].Trim())\r\n                .ToList();\r\n\r\n            return string.Join(\", \", containerTypes);\r\n        }\r\n\r\n    }\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "GetRTMetaData",
+      "code": "using System;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GetRTMetaData\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n        \r\n        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            var loop_number = context.GetGlobalVariableValue<int>(\"RT_LOOP_COUNTER\");\r\n            var csvData = context.GetGlobalVariableValue<string>(\"STORAGE_RT_STORE_1_AMBIENT\");\r\n\r\n            var meta_data = CSVParser.ParseCSV(csvData, 1, false);\r\n\r\n            var meta_data_string = $\"{meta_data[loop_number].ContainerType},{meta_data[loop_number].ProcessLabware}\";\r\n\r\n            context.UpdateGlobalVariableAsync(\"RT_META_DATA\", meta_data_string);\r\n\r\n            log.Information(meta_data_string);\r\n            \r\n            return Task.CompletedTask;\r\n        }     \r\n    }\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "GetRTReagents",
+      "code": "using Serilog;\r\nusing System;\r\nusing System.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GetRTReagents\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            var container_list = context.GetGlobalVariableValue<string>(\"STORAGE_REARRAY_1_AMBIENT\");\r\n            \r\n            log.Information(\"Starting RT REAGENTS\");\r\n\r\n            log.Information(container_list);\r\n\r\n            string containerTypesResult = GetContainerTypes(container_list);\r\n            log.Information(\"***************************************************\");\r\n            log.Information(containerTypesResult);\r\n\r\n            string[] splitContainerTypesResult = containerTypesResult.Split(',');\r\n            await context.UpdateGlobalVariableAsync(\"RT_REAGENTS_NUMBER_OF_CONTAINERS\", splitContainerTypesResult.Length);\r\n               log.Information(\"SUCCESS\");\r\n\r\n            string barcodesResult = GetBarcodesWhereRearrayIsFalse(container_list);\r\n            await context.UpdateGlobalVariableAsync(\"RT_REAGENT_BARCODE_LIST\", barcodesResult);\r\n            log.Information(\"***************************************************\");\r\n            log.Information(barcodesResult);\r\n        }\r\n\r\n        public static string GetContainerTypes(string csvData)\r\n        {\r\n            var lines = csvData.Split(new[] { '\\r', '\\n' }, StringSplitOptions.RemoveEmptyEntries);\r\n\r\n            var containerTypes = lines\r\n                .Skip(1) // Skip header\r\n                .Select(line => line.Split(','))\r\n                .Where(columns => columns.Length > 6 && columns[6].Trim().Equals(\"False\", StringComparison.OrdinalIgnoreCase))\r\n                .Select(columns => columns[1].Trim())\r\n                .ToList();\r\n\r\n            return string.Join(\", \", containerTypes);\r\n        }\r\n\r\n        public static string GetBarcodesWhereRearrayIsFalse(string csvData)\r\n        {\r\n            var lines = csvData.Split(new[] { '\\r', '\\n' }, StringSplitOptions.RemoveEmptyEntries);\r\n\r\n            var barcodes = lines\r\n                .Skip(1) // Skip header\r\n                .Select(line => line.Split(','))\r\n                .Where(columns => columns.Length > 6 && columns[6].Trim().Equals(\"False\", StringComparison.OrdinalIgnoreCase))\r\n                .Select(columns => columns[2].Trim()) // Get the third column (barcode)\r\n                .ToList();\r\n\r\n            return string.Join(\",\", barcodes);\r\n        }\r\n    }\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "GetRTReagentMetaData",
+      "code": "using System;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GetRTReagentMetaData\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n        \r\n        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            var loop_number = context.GetGlobalVariableValue<int>(\"RT_REAGENT_LOOP_COUNTER\");\r\n            var csvData = context.GetGlobalVariableValue<string>(\"STORAGE_REARRAY_1_AMBIENT\");\r\n\r\n            var meta_data = CSVParser.ParseCSV(csvData, 1, false);\r\n\r\n            var meta_data_string = $\"{meta_data[loop_number].ContainerType},{meta_data[loop_number].ProcessLabware}\";\r\n\r\n            context.UpdateGlobalVariableAsync(\"RT_REAGENT_META_DATA\", meta_data_string);\r\n\r\n            log.Information(meta_data_string);\r\n            \r\n            return Task.CompletedTask;\r\n        }     \r\n    }\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "RTReagentGetBarcode",
+      "code": "#r CalLabIdentities.dll\r\n#r WorkflowHelper.dll\r\nusing System;\r\nusing System.Linq;\r\n\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing CalLabUtilities;\r\n\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class RTReagentGetBarcode\r\n    {\r\n    \tprivate static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n    \t\r\n        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n        \r\n        \t\tvar barcode_list  = context.GetGlobalVariableValue<string>(\"RT_REAGENT_BARCODE_LIST\");  \r\n        \t\tvar index = context.GetGlobalVariableValue<int>(\"RT_REAGENT_LOOP_COUNTER\");  \r\n        \t\t\r\n        \t\tvar index_adjustment = 0;//context.GetGlobalVariableValue<int>(\"AZENTA_LOOP_ADJUSTMENT\");  \r\n        \t\t\r\n        \t\tindex = index - index_adjustment;\r\n\r\n                log.Information($\"INDEX:{index.ToString()}\");\r\n        \t\t\r\n        \t\ttry\r\n        \t\t{\r\n        \t\r\n           \t\t string barcodeAtIndex = BarcodeManager.GetBarcodeByIndex(barcode_list, index);\r\n           \t\t log.Information($\"BARCODE:{barcodeAtIndex}\");\r\n           \t\t context.UpdateGlobalVariableAsync(\"RT_REAGENT_BARCODE\", barcodeAtIndex);\r\n           \t\t \r\n           \t\t \r\n            \t\tlog.Information(\"Barcode at \" + barcodeAtIndex); // Output: BC3\r\n        \t\t}\r\n        \t\tcatch (ArgumentOutOfRangeException ex)\r\n        \t\t{\r\n            \t\tlog.Information(ex.Message);\r\n        \t\t}\r\n        \t    \r\n            \t\treturn Task.CompletedTask;\r\n        \t\t}\r\n\r\n    \t}\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "GenerateRearrayWorklists",
+      "code": "using System;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\nusing CalLabUtilities;\r\nusing Serilog;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GenerateRearrayWorklists\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            var storageVariables = new List<string>\r\n            {\r\n                \"STORAGE_AZENTA_MINUS_80\",\r\n                \"STORAGE_AZENTA_MINUS_20\",\r\n                \"STORAGE_VERSO_Q20_1\",\r\n                \"STORAGE_VERSO_Q20_2\",\r\n                \"STORAGE_REARRAY_1_AMBIENT\"\r\n            };\r\n\r\n            var storageValues = GetNonEmptyGlobalVariableValues(context, storageVariables);\r\n\r\n            var (pickLists, anchorBarcodes) = BarcodeManager.BuildPickLists(storageValues);\r\n\r\n            List<string> anchorBarcodeList = new List<string>();\r\n\r\n            foreach (var pickList in pickLists)\r\n            {\r\n                Console.WriteLine($\"Picklist for {pickList.Key} (Anchor Barcode: {anchorBarcodes[pickList.Key]}):\");\r\n                Console.WriteLine(pickList.Value);\r\n                Console.WriteLine();\r\n\r\n                // Add the anchor barcode to the list\r\n                anchorBarcodeList.Add(anchorBarcodes[pickList.Key]);\r\n            }\r\n\r\n            // Concatenate all anchor barcodes into a single string\r\n            var anchorBarcodesString = String.Join(\",\", anchorBarcodeList);\r\n\r\n            // Assign the concatenated string to a global variable\r\n            context.UpdateGlobalVariableAsync(\"ANCHOR_BARCODES\", anchorBarcodesString);\r\n            Console.WriteLine(\"ANCHOR BARCODES\");\r\n            Console.WriteLine(anchorBarcodesString);\r\n\r\n            return Task.CompletedTask;\r\n        }\r\n\r\n        private List<string> GetNonEmptyGlobalVariableValues(WorkflowContext context, List<string> variableKeys)\r\n        {\r\n            List<string> values = new List<string>();\r\n            foreach (var key in variableKeys)\r\n            {\r\n                var value = context.GetGlobalVariableValue<string>(key);\r\n                if (!string.IsNullOrEmpty(value))\r\n                {\r\n                    values.Add(value);\r\n                }\r\n            }\r\n            return values;\r\n        }\r\n\r\n        private string BuildWorklist(WorkflowContext context, string barcodeListKey, string pickListKey)\r\n        {\r\n            log.Information(barcodeListKey);\r\n            var barcodeList = context.GetGlobalVariableValue<string>(barcodeListKey);\r\n            log.Information(barcodeList);\r\n            var pickList = context.GetGlobalVariableValue<string>(pickListKey);\r\n            return BarcodeManager.UpdateRackBarcodes(pickList, barcodeList);\r\n        }\r\n    }\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "UpdateContainerJSON",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\n\r\nusing System;\r\nusing System.Collections;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\nusing System.Text.Json;\r\nusing System.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing System.Reflection;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nusing Biosero.DataServices.RestClient;\r\nusing Newtonsoft.Json;\r\nusing Newtonsoft.Json.Linq;\r\n//using System.Text.Json.Nodes;\r\nusing Biosero.DataModels.Resources;\r\nusing Biosero.DataModels.Parameters;\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing Inventory_Helper;\r\nusing Biosero.DataModels.Clients;\r\nusing Biosero.DataModels.Events;\r\nusing Serilog.Core;\r\nusing Biosero.DataServices;\r\n\r\nusing CalLabUtilities;\r\nusing System.Dynamic;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class UpdateContainerJSON\r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n  \r\n         \tvar jsonString = context.GetGlobalVariableValue<string>(\"CONTAINER_JSON\");\r\n         \t\r\n         \tvar csvString = context.GetGlobalVariableValue<string>(\"STORAGE_AZENTA_MINUS_20\");\r\n        \t \tjsonString = BarcodeManager.UpdateRackBarcodesInJson(jsonString, csvString);\r\n        \t \t\r\n        \t \tcsvString = context.GetGlobalVariableValue<string>(\"STORAGE_AZENTA_MINUS_80\");\r\n        \t \tjsonString = BarcodeManager.UpdateRackBarcodesInJson(jsonString, csvString);\r\n        \t \t\r\n        \t \tcsvString = context.GetGlobalVariableValue<string>(\"STORAGE_VERSO_Q20_1\");\r\n        \t \tjsonString = BarcodeManager.UpdateRackBarcodesInJson(jsonString, csvString);\r\n        \t \t\r\n        \t \tcsvString = context.GetGlobalVariableValue<string>(\"STORAGE_VERSO_Q20_2\");\r\n        \t \tjsonString = BarcodeManager.UpdateRackBarcodesInJson(jsonString, csvString);\r\n        \t \t\r\n        \t \tcsvString = context.GetGlobalVariableValue<string>(\"STORAGE_REARRAY_1_AMBIENT\");\r\n        \t \tjsonString = BarcodeManager.UpdateRackBarcodesInJson(jsonString, csvString);\r\n        \t \t\r\n        \t \tcsvString = context.GetGlobalVariableValue<string>(\"STORAGE_RT_STORE_1_AMBIENT\");\r\n        \t \tjsonString = BarcodeManager.UpdateRackBarcodesInJson(jsonString, csvString);\r\n        \t \t\r\n\r\n        \t \tcontext.UpdateGlobalVariableAsync(\"CONTAINER_JSON\", jsonString);\r\n        \t \r\n        \t \treturn Task.CompletedTask; \r\n        }\r\n     }\r\n}",
+      "language": "C#"
+    },
+    {
+      "name": "UpdateWorklist",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\n\r\nusing System;\r\nusing System.Collections;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\nusing System.Text.Json;\r\nusing System.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing System.Reflection;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nusing Biosero.DataServices.RestClient;\r\nusing Newtonsoft.Json;\r\nusing Newtonsoft.Json.Linq;\r\n//using System.Text.Json.Nodes;\r\nusing Biosero.DataModels.Resources;\r\nusing Biosero.DataModels.Parameters;\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing Inventory_Helper;\r\nusing Biosero.DataModels.Clients;\r\nusing Biosero.DataModels.Events;\r\nusing Serilog.Core;\r\nusing Biosero.DataServices;\r\n\r\nusing CalLabUtilities;\r\nusing System.Dynamic;\r\n\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class UpdateWorklist \r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n\r\n              \r\n                var storageTypeIds = new[]\r\n                {\r\n                    StorageTypeIDs.REARRAY_1_AMBIENT,\r\n                    StorageTypeIDs.AZENTA_MINUS_80,\r\n                    StorageTypeIDs.AZENTA_MINUS_20,\r\n                    StorageTypeIDs.VERSO_Q20_4C_1,\r\n                    StorageTypeIDs.VERSO_Q20_4C_2,\r\n                   // StorageTypeIDs.ASKION_MINUS_180,\r\n                    StorageTypeIDs.RTSTORE_1_AMBIENT\r\n                };\r\n\r\n \t\tvar main_worklist =    context.GetGlobalVariableValue<string>(\"CONTAINER_JSON\");\r\n \t\t\r\n \t\t\r\n                foreach (var storageTypeId in storageTypeIds)\r\n                {\r\n                      var container_list = context.GetGlobalVariableValue<string>(storageTypeId.Name);\r\n                      \r\n                      main_worklist = MetaDataProcessor.UpdateJSONWorklist(main_worklist, container_list);\r\n             \r\n                }\r\n                \r\n                await context.UpdateGlobalVariableAsync(\"CONTAINER_JSON\", main_worklist);\r\n                \r\n                Console.WriteLine(\"***************************\");\r\n                \r\n                 Console.WriteLine(main_worklist);\r\n                \r\n                \r\n\r\n        }\r\n\r\n    }\r\n    \r\n\r\n}\r\n",
+      "language": "C#"
+    }
+  ],
+  "globalScriptReferences": [
+    "Biosero.Workflow.Core.dll",
+    "Biosero.DataModels.dll"
+  ],
+  "screens": [],
+  "deviceRequirements": [],
+  "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+  "color": "#0000FF",
+  "name": "BatchUpdateTemplate",
+  "category": "UpdateTemplates",
+  "lastModified": "0001-01-01T00:00:00+00:00",
+  "parameterReferenceIndicator": "%"
+}

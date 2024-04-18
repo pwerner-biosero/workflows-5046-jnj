@@ -1,0 +1,62 @@
+{
+  "procedures": [
+    {
+      "name": "Start",
+      "sequence": {
+        "children": [
+          {
+            "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+            "description": "Log: SAMPLE UPDATE TEMPLATE",
+            "text": "SAMPLE UPDATE TEMPLATE",
+            "appendNewLine": false,
+            "name": "Log",
+            "helpText": "Writes to the log",
+            "guid": "2706a9e4-bc93-4bc2-931d-d0ef1a8b097c",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+            "backgroundColorHex": "#FFC69AE8",
+            "isDisabled": false,
+            "isPausePointSet": false
+          }
+        ],
+        "name": "Sequence",
+        "description": "Sequence",
+        "helpText": "A sequence of workflow elements",
+        "guid": "46daa400-6782-4251-bd42-41abb91a800f",
+        "isAsync": false,
+        "allowAsync": false,
+        "backgroundColorHex": "#00000000",
+        "isDisabled": false,
+        "isPausePointSet": false
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "SamplesJSON",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    }
+  ],
+  "scripts": [],
+  "globalScriptReferences": [
+    "Biosero.Workflow.Core.dll",
+    "Biosero.DataModels.dll"
+  ],
+  "screens": [],
+  "deviceRequirements": [],
+  "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+  "color": "#0000FF",
+  "name": "SampleUpdateTemplate",
+  "category": "UpdateTemplates",
+  "lastModified": "0001-01-01T00:00:00+00:00",
+  "parameterReferenceIndicator": "%"
+}

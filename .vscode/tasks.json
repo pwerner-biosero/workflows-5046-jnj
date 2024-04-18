@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+
+        {
+            "label": "Export C# scripts from JSON",
+            "type": "shell",
+            "command": "node",
+            "args": [
+              "${workspaceFolder}/exportScripts.js"
+            ],
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            },
+            "presentation": {
+              "reveal": "always",
+              "panel": "new"
+            }
+          },
+ 
+    ]
+}
