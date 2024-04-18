@@ -31,8 +31,9 @@ To set up the `designer-script-parser`, follow these steps:
 To start extracting scripts, you have two options:
 
 1. **Command Line Execution**:
-   Run the following command from the root of your project directory:
+   Run the following commands from the root of your project directory:
    ```bash
+   npm install
    node index.js
    ```
 
