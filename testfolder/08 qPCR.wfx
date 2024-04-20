@@ -1,0 +1,291 @@
+{
+  "procedures": [
+    {
+      "name": "Start",
+      "sequence": {
+        "children": [
+          {
+            "$type": "Biosero.Workflow.RunScript, Biosero.Workflow.Core",
+            "scriptName": "Get qPCR Container",
+            "name": "Run Script",
+            "description": "Run Script: Get qPCR Container",
+            "helpText": "Runs the specified script",
+            "guid": "bfc632e3-edc3-427a-a6ae-734b018dc055",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.ScriptTextOutline [#FFFFFFFF]",
+            "backgroundColorHex": "#FFF58CFF",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Commands.TransportCommand, Biosero.Workflow.Core",
+            "helpText": "Transports the specified barcode(s) from one station to another.",
+            "backgroundColorHex": "#FF666666",
+            "iconUrl": "PackIcon.TransitConnectionVariant [#FFFFFFFF]",
+            "name": "Transport",
+            "inputParameters": [
+              {
+                "name": "Timeout (min)",
+                "value": "10",
+                "valueType": "Double",
+                "defaultValue": "10"
+              },
+              {
+                "name": "From",
+                "value": "%Input.DNA_WORKCELL%",
+                "valueType": "String"
+              },
+              {
+                "name": "To",
+                "value": "WORKCELL_RT_STORE_1",
+                "valueType": "String"
+              },
+              {
+                "name": "Barcodes",
+                "value": "%BARCODE%",
+                "valueType": "String"
+              },
+              {
+                "name": "Metadata",
+                "value": "%QPCR_CONTAINER%",
+                "valueType": "String"
+              }
+            ],
+            "outputParameterMapping": [
+              {
+                "name": "Barcodes",
+                "parameterType": "String"
+              },
+              {
+                "name": "Request ID",
+                "parameterType": "String"
+              }
+            ],
+            "description": "Transport",
+            "guid": "dd14472f-ce26-4601-84fc-e303b0d1dc44",
+            "isAsync": false,
+            "allowAsync": false,
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+            "description": "Log: [SPIN PLATE TEMPLATE]",
+            "text": "[SPIN PLATE TEMPLATE]",
+            "appendNewLine": false,
+            "name": "Log",
+            "helpText": "Writes to the log",
+            "guid": "f54f22ba-c63c-468f-be8f-6f43f3a2c71c",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+            "backgroundColorHex": "#FFC69AE8",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Commands.TransportCommand, Biosero.Workflow.Core",
+            "helpText": "Transports the specified barcode(s) from one station to another.",
+            "backgroundColorHex": "#FF666666",
+            "iconUrl": "PackIcon.TransitConnectionVariant [#FFFFFFFF]",
+            "name": "Transport",
+            "inputParameters": [
+              {
+                "name": "Timeout (min)",
+                "value": "10",
+                "valueType": "Double",
+                "defaultValue": "10"
+              },
+              {
+                "name": "From",
+                "value": "WORKCELL_RT_STORE_1",
+                "valueType": "String"
+              },
+              {
+                "name": "To",
+                "value": "INSTRUMENT_QPCR_1",
+                "valueType": "String"
+              },
+              {
+                "name": "Barcodes",
+                "value": "%BARCODE%",
+                "valueType": "String"
+              },
+              {
+                "name": "Metadata",
+                "value": "%QPCR_CONTAINER%",
+                "valueType": "String"
+              }
+            ],
+            "outputParameterMapping": [
+              {
+                "name": "Barcodes",
+                "parameterType": "String"
+              },
+              {
+                "name": "Request ID",
+                "parameterType": "String"
+              }
+            ],
+            "description": "Transport",
+            "guid": "a559f5e2-2f00-4b50-aab3-d30afa242bf1",
+            "isAsync": false,
+            "allowAsync": false,
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Elements.WriteToLog, Biosero.Workflow.Core",
+            "description": "Log: [QPCR TEMPLATE]",
+            "text": "[QPCR TEMPLATE]",
+            "appendNewLine": false,
+            "name": "Log",
+            "helpText": "Writes to the log",
+            "guid": "2ab2ff24-f6f0-42d0-a098-335642b9f9bb",
+            "isAsync": false,
+            "allowAsync": false,
+            "iconUrl": "PackIcon.Feather [#FFFFFFFF]",
+            "backgroundColorHex": "#FFC69AE8",
+            "isDisabled": false,
+            "isPausePointSet": false
+          },
+          {
+            "$type": "Biosero.Workflow.Commands.TransportCommand, Biosero.Workflow.Core",
+            "helpText": "Transports the specified barcode(s) from one station to another.",
+            "backgroundColorHex": "#FF666666",
+            "iconUrl": "PackIcon.TransitConnectionVariant [#FFFFFFFF]",
+            "name": "Transport",
+            "inputParameters": [
+              {
+                "name": "Timeout (min)",
+                "value": "10",
+                "valueType": "Double",
+                "defaultValue": "10"
+              },
+              {
+                "name": "From",
+                "value": "INSTRUMENT_QPCR_1",
+                "valueType": "String"
+              },
+              {
+                "name": "To",
+                "value": "WORKCELL_COLD_STORE_1",
+                "valueType": "String"
+              },
+              {
+                "name": "Barcodes",
+                "value": "%BARCODE%",
+                "valueType": "String"
+              },
+              {
+                "name": "Metadata",
+                "value": "%QPCR_CONTAINER%",
+                "valueType": "String"
+              }
+            ],
+            "outputParameterMapping": [
+              {
+                "name": "Barcodes",
+                "parameterType": "String"
+              },
+              {
+                "name": "Request ID",
+                "parameterType": "String"
+              }
+            ],
+            "description": "Transport",
+            "guid": "2dad8ff9-a570-4cdb-a2ac-e205ac3d76a6",
+            "isAsync": false,
+            "allowAsync": false,
+            "isDisabled": false,
+            "isPausePointSet": false
+          }
+        ],
+        "name": "Sequence",
+        "description": "Sequence",
+        "helpText": "A sequence of workflow elements",
+        "guid": "45d8c60b-c572-44a3-8d18-5889eb34efcf",
+        "isAsync": false,
+        "allowAsync": false,
+        "backgroundColorHex": "#00000000",
+        "isDisabled": false,
+        "isPausePointSet": false
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Input.DNA_WORKCELL",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "Input.CONTAINER_WORKLIST",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "BARCODE",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "QPCR_CONTAINER",
+      "value": "",
+      "valueType": "String",
+      "defaultValue": "",
+      "tags": {
+        "$type": "System.Collections.ObjectModel.ObservableCollection`1[[System.String, System.Private.CoreLib]], System.ObjectModel",
+        "$values": [
+          ""
+        ]
+      }
+    }
+  ],
+  "scripts": [
+    {
+      "name": "Get qPCR Container",
+      "code": "#r CalLabIdentities.dll\r\n#r Inventory_Helper.dll\r\n#r CredentialManagement.dll\r\n#r Microsoft.Data.SqlClient.dll\r\n#r WorkflowHelper.dll\r\n\r\nusing System;\r\nusing System.Collections;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\nusing System.Text.Json;\r\nusing System.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing System.Reflection;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nusing Biosero.DataServices.RestClient;\r\nusing Newtonsoft.Json;\r\nusing Newtonsoft.Json.Linq;\r\n//using System.Text.Json.Nodes;\r\nusing Biosero.DataModels.Resources;\r\nusing Biosero.DataModels.Parameters;\r\nusing Serilog;\r\nusing Serilog.Sinks;\r\nusing Serilog.Sinks.SystemConsole.Themes;\r\nusing Inventory_Helper;\r\nusing Biosero.DataModels.Clients;\r\nusing Biosero.DataModels.Events;\r\nusing Serilog.Core;\r\nusing Biosero.DataServices;\r\n\r\nusing CalLabUtilities;\r\nusing System.Dynamic;\r\n\r\n\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    public class GetQPCRContainer \r\n    {\r\n        private static ILogger log = new LoggerConfiguration().WriteTo.Console().CreateLogger();\r\n\r\n        public  async Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n\r\n\r\n        // THe dude is abliaged\r\n\t\tvar container_worklist = context.GetGlobalVariableValue<string>(\"Input.CONTAINER_WORKLIST\");\r\n\t\t\r\n\t\t(string containerJson, int number_of_containers) =MetaDataProcessor.GetReturnContainers(container_worklist, \"3\");\r\n\t\t\r\n\t\tawait context.UpdateGlobalVariableAsync(\"QPCR_CONTAINER\", containerJson);\r\n\t\t\r\n\t\t\r\n\t\t(string plate_id, string container) =MetaDataProcessor.GetReturnContainer(containerJson, 0);\r\n\t\t\r\n\t\tlog.Information($\"BARCODE: {plate_id}\");\r\n\t\t\r\n\t\t\r\n\t\tawait context.UpdateGlobalVariableAsync(\"BARCODE\", plate_id);\r\n\t\tawait context.UpdateGlobalVariableAsync(\"QPCR_CONTAINER\", container);\r\n\t\t\r\n        }\r\n\r\n    }\r\n    \r\n\r\n}\r\n",
+      "language": "C#"
+    },
+    {
+      "name": "jaberjaw",
+      "code": "using System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Biosero.DataServices.Client;\r\nusing Biosero.Orchestrator.WorkflowService;\r\n\r\nnamespace Acme.Orchestrator.Scripting\r\n{\r\n    // Scripts require a class with a parameterless constructor and a RunAsync method matching the below signature.\r\n    public class TestSriptExperience\r\n    {\r\n        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)\r\n        {\r\n            return Task.CompletedTask;\r\n        }\r\n    }\r\n}",
+      "language": "C#"
+    }
+  ],
+  "globalScriptReferences": [
+    "Biosero.Workflow.Core.dll",
+    "Biosero.DataModels.dll"
+  ],
+  "screens": [],
+  "deviceRequirements": [],
+  "iconUrl": "PackIcon.Telegram [#FFFFFF:0:0]",
+  "color": "#0000FF",
+  "name": "qPCR Workflow",
+  "category": "Genetic Testing",
+  "lastModified": "0001-01-01T00:00:00+00:00",
+  "parameterReferenceIndicator": "%"
+}
